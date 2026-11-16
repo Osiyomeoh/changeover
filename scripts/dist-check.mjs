@@ -1,5 +1,6 @@
 // Open the built site (dist/, served on http://localhost:4173 by `python3 -m http.server 4173 -d dist`)
 // in a new tab of the managed browser at 390 px and 1280 px wide, before entering VR.
+// CO_DIST_URL checks another address instead, e.g. the deployed GitHub Pages site.
 // Reports console errors/warnings and page errors, and saves a screenshot per width
 // to .stills-tmp/. The tab is closed afterwards; the app tab is not touched.
 import fs from 'node:fs';
@@ -16,7 +17,7 @@ export default async function ({ context, workspaceRoot }) {
     page.on('pageerror', (e) => msgs.push(`pageerror: ${String(e).slice(0, 200)}`));
     page.on('requestfailed', (r) => msgs.push(`requestfailed: ${r.url().slice(0, 120)}`));
     await page.setViewportSize({ width: w, height: h });
-    await page.goto('http://localhost:4173/', { waitUntil: 'load' });
+    await page.goto(process.env.CO_DIST_URL ?? 'http://localhost:4173/', { waitUntil: 'load' });
     await page.waitForTimeout(8000);
     const info = await page.evaluate(() => ({
       scrollW: document.documentElement.scrollWidth, innerW: innerWidth,

@@ -1,0 +1,38 @@
+# Submission video: capture and cut (Nov 16)
+
+Commands: `python3 scripts/emu-film.py --capture .stills-tmp/film`, then `python3 scripts/film-cut.py .stills-tmp/film`.
+Headed managed browser, IWER device metaVRGlasses, the emulator's own toolbar and gizmos hidden. Hands, head
+and gaze are driven by `xr` CLI commands (animate-to, set-select-value, set-connected, look-at); frames come
+from the Chrome DevTools screencast (`scripts/film-capture.mjs`, every second frame). Each TAKE is checked
+against the game's own ECS status, as in `evidence/emu-film-8shots.txt`.
+
+The first full pass recorded shots 1-6. Its dawn capture ran past `browser run`'s 60 s default timeout,
+the CLI retired the managed browser, and the daily setup then failed; after `iwsdk runtime recover`, dawn and
+daily were re-recorded with `--shot` and a 110 s capture timeout (the CLI's maximum per script).
+
+1  title     TAKE OK   2026-11-16 06:43:35 WAT  shot  12.9 s  capture 489 frames, 13.7 s, 35.8 fps, 1200x1244
+2  night1    TAKE OK   2026-11-16 06:43:58 WAT  shot  18.0 s  capture 666 frames, 18.7 s, 35.7 fps, 1200x1244
+3  overload  TAKE OK   2026-11-16 06:44:26 WAT  shot  16.9 s  capture 621 frames, 17.7 s, 35.1 fps, 1200x1244
+4  backfeed  TAKE OK   2026-11-16 06:44:53 WAT  shot  17.1 s  capture 628 frames, 17.9 s, 35.1 fps, 1200x1244
+5  eyes      TAKE OK   2026-11-16 06:45:20 WAT  shot  29.5 s  capture 1082 frames, 30.1 s, 35.9 fps, 1200x1244
+6  lookaway  TAKE OK   2026-11-16 06:46:01 WAT  shot  14.2 s  capture 534 frames, 14.9 s, 35.9 fps, 1200x1244
+7  dawn      TAKE OK   2026-11-16 06:51:48 WAT  shot  76.8 s  capture 2784 frames, 77.5 s, 35.9 fps, 1200x1244  night 42.6 s at ?speed=600
+8  daily     TAKE OK   2026-11-16 06:53:15 WAT  shot  82.8 s  capture 2979 frames, 83.4 s, 35.7 fps, 1200x1244  night 65.5 s at ?speed=600
+
+## Cut (scripts/film-cut.py)
+Each shot is trimmed to its START/END cues; dawn starts 1.5 s before its NIGHT cue (its carries repeat
+night1's). The fast night in dawn and daily (NIGHT to DAWN cue) is shown in 5 s with a "Night sped up" label.
+Game view cropped from the page (936x870 at 132,332), scaled to 1080 high, beside a caption panel.
+
+0:00.0–0:13.3  title      13.3 s  477 frames
+0:13.3–0:31.6  night1     18.3 s  651 frames
+0:31.6–0:48.8  overload   17.3 s  607 frames
+0:48.8–1:06.2  backfeed   17.4 s  615 frames
+1:06.2–1:36.0  eyes       29.8 s  1069 frames
+1:36.0–1:50.5  lookaway   14.4 s  519 frames
+1:50.5–2:22.7  dawn       32.3 s  2480 frames  (night 5.0 s shown, 8.4× speed)
+2:22.7–2:46.1  daily      23.4 s  2967 frames  (night 5.0 s shown, 12.9× speed)
+2:46.1–2:52.1  closing     6.0 s
+total 2:52.1
+
+Output: 1920x1080, 30 fps, H.264, no audio, no music.

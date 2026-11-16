@@ -15,6 +15,8 @@ Usage (from the project root, dev server running with the browser headed):
   python3 scripts/emu-film.py                  every shot; each is set up, then waits for Enter
   python3 scripts/emu-film.py --shot dawn      one shot, e.g. for a retake
   python3 scripts/emu-film.py --auto           no Enter prompts (a 3 s gap before each shot)
+  python3 scripts/emu-film.py --capture .stills-tmp/film   also record each shot's frames into DIR/<shot>/
+                                               (scripts/film-capture.mjs) for scripts/film-cut.py; implies --auto
   python3 scripts/emu-film.py --overlay        keep the emulator's toolbar, hand panels and axis gizmos
                                                in frame (hidden by default; shown again at the end)
 The cue log (seconds since the script started, per shot) goes to .stills-tmp/film-cues.txt, so
@@ -22,6 +24,7 @@ one long recording can be cut afterwards. Exit 0 only if every take played was O
 """
 import json
 import os
+import shutil
 import subprocess
 import sys
 import time
@@ -37,8 +40,15 @@ SPAN = 0.14  # LEVER_SPAN
 CORD = (-0.30, TOP_Y + 0.07, -0.38)  # layout CORD_POS = GENERATOR_POS
 SEATED = -35  # the seated design pose: src/fov.test.ts keeps everything critical in view here
 SAFE_GAZE = (0.0, TOP_Y, -0.08)  # the table's near edge: no look target, so a pinch is only the hand's
-AUTO = "--auto" in sys.argv
+CAPTURE = sys.argv[sys.argv.index("--capture") + 1] if "--capture" in sys.argv else None
+AUTO = "--auto" in sys.argv or CAPTURE is not None
 OVERLAY = "--overlay" in sys.argv
+_cap = None  # (process, dir) while a capture runs; the browser then queues `browser run`, so moves use `xr`
+CUES_JSON = {}
+if CAPTURE and os.path.exists(os.path.join(CAPTURE, "cues.json")):  # re-recording one shot keeps the others
+    with open(os.path.join(CAPTURE, "cues.json")) as _f:
+        CUES_JSON = json.load(_f)
+_shot = {}
 CUES = os.path.join(".stills-tmp", "film-cues.txt")
 T0 = time.time()
 
@@ -46,6 +56,8 @@ T0 = time.time()
 # ---------- moves ----------
 
 def run_moves(*moves):
+    if _cap is not None:
+        return xr_moves(moves)
     env = dict(os.environ, CO_MOVES=json.dumps(list(moves)))
     out = subprocess.run([CLI, "browser", "run", "scripts/film-move.mjs"], capture_output=True, text=True,
                          timeout=180, env=env)
@@ -56,6 +68,75 @@ def run_moves(*moves):
     if not d.get("ok", True) or "data" not in d:
         raise RuntimeError(f"film-move failed: {json.dumps(d)[:400]}")
     return d["data"]["result"]
+
+
+def _animate(device, ms, position=None, orientation=None):
+    payload = {"device": device, "duration": max(0.05, ms / 1000)}
+    if position is not None:
+        payload["position"] = dict(zip("xyz", position))
+    if orientation is not None:
+        payload["orientation"] = orientation
+    cli("xr", "animate-to", payload)
+
+
+def xr_moves(moves):
+    """The same moves through `xr animate-to` (IWER animates them per frame in the page), for capture mode."""
+    for m in moves:
+        if "wait" in m:
+            time.sleep(m["wait"] / 1000)
+        elif "hand" in m:
+            dev, to, ms, lift = f"hand-{m['hand']}", m["to"], m.get("ms", 700), m.get("lift", 0)
+            if lift:
+                a = cli("xr", "get-transform", {"device": dev})["position"]
+                mid = ((a["x"] + to[0]) / 2, (a["y"] + to[1]) / 2 + lift, (a["z"] + to[2]) / 2)
+                _animate(dev, ms / 2, position=mid)
+                _animate(dev, ms / 2, position=to)
+            else:
+                _animate(dev, ms, position=to)
+        elif "pinch" in m:
+            cli("xr", "set-select-value", {"device": f"hand-{m['pinch']}", "value": m["value"]})
+        elif "head" in m:
+            p, y = m["head"]
+            _animate("headset", m.get("ms", 1500), orientation={"pitch": p, "yaw": y, "roll": 0})
+        elif "overlay" in m:
+            pass  # set before the capture starts
+    return None
+
+
+def capture_start(key):
+    global _cap
+    d = os.path.join(CAPTURE, key)
+    shutil.rmtree(d, ignore_errors=True)
+    os.makedirs(d)
+    env = dict(os.environ, CO_CAPTURE_DIR=d, CO_CAPTURE_NTH="2", CO_CAPTURE_MAX_S="104")
+    # `browser run` stops a script after 60 s by default and retires the browser; 110 s is the most it allows,
+    # so a shot (dawn and daily run longest, ~90 s) must fit inside that; the capture stops itself at 104 s.
+    proc = subprocess.Popen([CLI, "browser", "run", "scripts/film-capture.mjs", "--timeout", "110000"],
+                            stdout=subprocess.PIPE,
+                            stderr=subprocess.PIPE, text=True, env=env)
+    _cap = (proc, d)
+    for _ in range(100):
+        if os.path.exists(os.path.join(d, "f000000.jpg")):
+            break
+        time.sleep(0.1)
+    time.sleep(0.5)
+
+
+def capture_stop():
+    global _cap
+    proc, d = _cap
+    _cap = None
+    open(os.path.join(d, "STOP"), "w").close()
+    out, err = proc.communicate(timeout=120)
+    try:
+        return json.loads(out)["data"]["result"]
+    except Exception:  # noqa: BLE001
+        return {"error": (out + err)[-300:]}
+
+
+def mark(name, text):
+    _shot.setdefault("marks", {})[name] = time.time()
+    cue(f"  {name}: {text}")
 
 
 def glide(side, to, ms=700, lift=0.0):
@@ -140,7 +221,7 @@ def setup(query, pitch=SEATED):
 
 
 def cue(text):
-    line = f"{time.time() - T0:8.1f} s  {text}"
+    line = f"{time.time() - T0:8.1f} s  @{time.time():.3f}  {text}"
     print(line, flush=True)
     with open(CUES, "a") as f:
         f.write(line + "\n")
@@ -148,6 +229,8 @@ def cue(text):
 
 def ready(n, key, title):
     print(f"\nShot {n} '{key}' is set up: {title}", flush=True)
+    if CAPTURE:
+        return
     if AUTO:
         time.sleep(3)
     else:
@@ -233,11 +316,12 @@ def shot_dawn():
     ?speed=600 runs the night in about 48 s; cut from the DAWN cue."""
     yield "?night=1&speed=600&fresh", SEATED
     run_moves(wait(500), *carry("fridge", 0), wait(300), *carry("fan", 1))
-    s = wait_until(lambda s: s["outcome"] != "playing", 120)
+    mark("NIGHT", "both on; the night runs at ?speed=600")
+    s = wait_until(lambda s: s["outcome"] != "playing", 120, every=0.25)
     if s["outcome"] != "won":
         yield False, {"outcome": s["outcome"]}
         return
-    cue("  DAWN: the night is won, the room starts to grow")
+    mark("DAWN", "the night is won, the room starts to grow")
     # window and fan, then the child on the mattress (right), the fridge (left), back to the window
     run_moves(wait(600), turn(-8, 0, 4500), wait(1500), turn(-16, -22, 3000), wait(3000),
               turn(-6, 26, 3800), wait(2000), turn(-8, 0, 2500), wait(3000))
@@ -250,11 +334,12 @@ def shot_daily():
     """2:30-2:45. Today's Daily Outage won: the panel shows "Streak 1 · best 1". ?speed=600; cut from the DAWN cue."""
     yield "?daily&speed=600&fresh", SEATED
     run_moves(wait(500), *carry("fridge", 0))
-    s = wait_until(lambda s: s["outcome"] != "playing", 150)
+    mark("NIGHT", "fridge on; the night runs at ?speed=600")
+    s = wait_until(lambda s: s["outcome"] != "playing", 150, every=0.25)
     if s["outcome"] != "won":
         yield False, {"outcome": s["outcome"]}
         return
-    cue("  DAWN: the Daily is won; the panel shows the streak")
+    mark("DAWN", "the Daily is won; the panel shows the streak")
     run_moves(wait(6000), turn(-12, 0, 3000), wait(3000))
     s = play()
     yield (s["streak"] == 1 and s["streakBest"] >= 1), {"streak": s["streak"], "streakBest": s["streakBest"]}
@@ -293,12 +378,23 @@ def main():
         query, pitch = next(steps)
         setup(query, pitch)
         ready(n, key, title)
+        _shot.clear()
+        if CAPTURE:
+            capture_start(key)
+        _shot["start"] = time.time()
         cue(f"shot {n} {key} START")
         try:
             ok, ev = next(steps)
         except Exception as e:  # noqa: BLE001
             ok, ev = False, {"error": str(e)}
+        _shot["end"] = time.time()
         cue(f"shot {n} {key} END  {'TAKE OK' if ok else 'TAKE BAD'}")
+        if CAPTURE:
+            _shot["capture"] = capture_stop() if _cap else {"error": "capture already stopped"}
+            CUES_JSON[key] = dict(_shot, ok=ok, n=n)
+            with open(os.path.join(CAPTURE, "cues.json"), "w") as f:
+                json.dump(CUES_JSON, f, indent=1)
+            print(f"  capture {json.dumps(_shot['capture'])}", flush=True)
         print(f"  {'TAKE OK' if ok else 'TAKE BAD'}  {json.dumps(ev)}", flush=True)
         results.append((key, ok))
     try:

@@ -11,6 +11,7 @@
 - [x] Regression after the ray fix on Glasses: gaze look-and-pinch 160/160, nights 60/60 (Nov 15)
 - [x] Dawn reveal: unit tests in `src/dawn.test.ts`, emulator 20/20 (5 runs × 4, `evidence/emu-dawn-5runs.txt`, Nov 15); nights 60/60 with it wired in (`evidence/emu-nights-with-dawn-20runs.txt`)
 - [x] Video shots: `scripts/emu-film.py --auto` played all 8 in one pass, every take OK against the game's own status (Nov 15, `evidence/emu-film-8shots.txt`); dawn framing checked by screenshot at the three head angles
+- [x] Video cut: `scripts/emu-film.py --capture` recorded all 8 shots, every take OK (Nov 16), and `scripts/film-cut.py` cut them to 2:52, 1920×1080, no audio, with the scripted-input closing card (`evidence/emu-film-capture.txt`)
 - [x] `npm run build` (Nov 15, after the dawn reveal); the emulator is not bundled into `dist/`
 - [x] Regression after the ray fix on Glasses: emu-play 160/160, look-to-hold 140/140 (Nov 15, 09:40–11:21 WAT, headed browser; `evidence/emu-play-glasses-after-ray-fix-20runs.txt`, `evidence/emu-look-hold-glasses-after-ray-fix-20runs.txt`). The two headless attempts crashed the managed browser on its first reload (`evidence/emu-play-20runs-browser-crash-0303WAT.txt`); the headed runs used the same game code (the new dawn files already existed, but nothing imported them yet)
 - [x] Starter robot, panel, glTF CDN assets, chime.mp3, webxr banner removed
@@ -24,7 +25,7 @@
 - [x] Daily Outage: same date → same night (test)
 - [x] localStorage wrapped in try/catch; works with storage blocked (streak key blocked in emulator: won, 0 errors; full block: unit tests only, IWER limitation)
 - [x] ≤100 draw calls, ≤150k triangles (emulator, measured): max 71 calls / 12,276 triangles per eye pass, night through dawn (Nov 15, `evidence/emu-perf-glasses.txt`). Per XR frame as the emulator counts it, 142 calls, because its WebGL has no multiview and draws each eye separately
-- [ ] Deployed page: 390 px and 1280 px, 0 console errors. The local `dist/` passes (Nov 15, `scripts/dist-check.mjs`): 0 errors and no horizontal scroll at 390 and 1280 px, only the browser's AudioContext autoplay warning before a gesture. Recheck on the Pages URL
+- [x] Deployed page: 390 px and 1280 px, 0 console errors. Live Pages URL (Nov 16, `CO_DIST_URL=https://osiyomeoh.github.io/changeover/` with `scripts/dist-check.mjs`): 0 errors, 0 page errors, 0 failed requests, no horizontal scroll at 390 and 1280 px; the only messages are the browser's AudioContext autoplay warning before a gesture, as on the local `dist/` (Nov 15)
 
 ## Content rules
 - [x] No brand names, no identifiable non-entrants (Nov 15 audit of game strings, UI, page, README, CLAIMS, evidence, scripts and the Devpost draft: no brands, no rival projects, judges or handles. Sources are cited as links, not logos)
@@ -33,6 +34,6 @@
 
 ## Submission (Sam does these)
 - [ ] Repo public, MIT licence, tag at freeze
-- [ ] Video < 3:00, real footage, no AI video, public YouTube/Vimeo
+- [ ] Video < 3:00, real footage, no AI video, public YouTube/Vimeo (cut done: `../changeover-video.mp4`, 2:52; Sam watches it and uploads)
 - [ ] Devpost fields: name, tagline, track Gaming, division New Experience, link, description, stills
 - [ ] Submit by Nov 18 18:00 Lagos (deadline 21:00)
