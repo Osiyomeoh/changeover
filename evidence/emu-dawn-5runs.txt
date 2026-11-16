@@ -1,0 +1,27 @@
+# scripts/emu-dawn.py --runs 5 · emulated Meta VR Glasses (IWER 2.5.0 bundled in @iwsdk/vite-plugin-dev 1.0.1, hands), headed (collaborate mode) · 2026-11-15 11:55–12:14 WAT · exit 0 · after the Nov 15 timing fix to the test (see evidence/emu-dawn-5runs-test-timing-fail.txt)
+run 1/5  PASS  dawn grows the room (steadily, to full size); fridge and fan on at dawn run in it; NEXT then starts Night 2
+run 1/5  PASS  fan off at dawn: the room shows the fridge running, not the fan
+run 1/5  PASS  NEXT pinched while the room is still growing: the room goes, Night 2 starts
+run 1/5  PASS  a lost night grows no room; RETRY restarts it
+run 2/5  PASS  dawn grows the room (steadily, to full size); fridge and fan on at dawn run in it; NEXT then starts Night 2
+run 2/5  PASS  fan off at dawn: the room shows the fridge running, not the fan
+run 2/5  PASS  NEXT pinched while the room is still growing: the room goes, Night 2 starts
+run 2/5  PASS  a lost night grows no room; RETRY restarts it
+run 3/5  PASS  dawn grows the room (steadily, to full size); fridge and fan on at dawn run in it; NEXT then starts Night 2
+run 3/5  PASS  fan off at dawn: the room shows the fridge running, not the fan
+run 3/5  PASS  NEXT pinched while the room is still growing: the room goes, Night 2 starts
+run 3/5  PASS  a lost night grows no room; RETRY restarts it
+run 4/5  PASS  dawn grows the room (steadily, to full size); fridge and fan on at dawn run in it; NEXT then starts Night 2
+run 4/5  PASS  fan off at dawn: the room shows the fridge running, not the fan
+run 4/5  PASS  NEXT pinched while the room is still growing: the room goes, Night 2 starts
+run 4/5  PASS  a lost night grows no room; RETRY restarts it
+run 5/5  PASS  dawn grows the room (steadily, to full size); fridge and fan on at dawn run in it; NEXT then starts Night 2
+run 5/5  PASS  fan off at dawn: the room shows the fridge running, not the fan
+run 5/5  PASS  NEXT pinched while the room is still growing: the room goes, Night 2 starts
+run 5/5  PASS  a lost night grows no room; RETRY restarts it
+
+SUMMARY
+  5/5  dawn grows the room (steadily, to full size); fridge and fan on at dawn run in it; NEXT then starts Night 2
+  5/5  fan off at dawn: the room shows the fridge running, not the fan
+  5/5  NEXT pinched while the room is still growing: the room goes, Night 2 starts
+  5/5  a lost night grows no room; RETRY restarts it

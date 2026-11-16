@@ -1,0 +1,13 @@
+# npm test (vitest run), Nov 15 2026, 15:15 WAT
+# Unit tests only: pure TypeScript model, no engine, no headset. Last line: vitest's exit code.
+
+
+ RUN  v5.0.5 /Users/MAC/Documents/meta/changeover
+
+
+ Test Files  12 passed (12)
+      Tests  298 passed (298)
+   Start at  15:15:54
+   Duration  873ms (tests 68%, import 16%, transform 10%, worker 5%)
+
+vitest exit code: 0

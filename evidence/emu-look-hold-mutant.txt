@@ -1,0 +1,20 @@
+# Mutation check for scripts/emu-look-hold.py · emulated Meta VR Glasses (IWER 2.5.0 bundled in @iwsdk/vite-plugin-dev 1.0.1, hands + eye gaze), headless · 2026-11-15 WAT
+#
+# Purpose: show the emulator scenarios fail when look-to-hold is broken, so a 20/20 pass means something.
+# Mutant: in src/changeover-system.ts update(), the eyes were removed as an isolator holder:
+#   - inp.isolatorHolder = keepEyes ? 'eyes' : (handIso ?? (eyesHold ? 'eyes' : null));
+#   + inp.isolatorHolder = keepEyes ? handIso : handIso; // MUTANT
+# Run once (--runs 1), then the original file was copied back and compared byte for byte (cmp: identical).
+# Expected: the 5 scenarios that need the eyes fail; the 2 hand-only scenarios still pass.
+
+SUMMARY
+  0/1  one hand: eyes hold the isolator, the right hand throws, latches
+  0/1  look away mid-throw: lever springs back, looked-away, explained
+  0/1  two look-aways in a row: two resets, both explained
+  0/1  eye tracking lost mid-throw: springs back, tracking-lost
+  0/1  gaze never acts alone: eyes on the isolator, no hand on the lever
+  1/1  two hands still work with the eyes elsewhere
+  1/1  a hand on the isolator wins: a glance away mid-throw is free
+
+# Result: as expected. The unmutated file passed 7/7 on the run just before this one.
+# Note: this run predates pinning the page to ?daily&fresh in the script (it ran on the page left open by the previous script).

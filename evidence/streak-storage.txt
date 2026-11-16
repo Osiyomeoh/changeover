@@ -1,0 +1,27 @@
+Daily Outage streak persistence, emulator (IWER 2.5.0 bundled in @iwsdk/vite-plugin-dev 1.0.1,
+Meta VR Glasses profile), Nov 4 2026. (Corrected Nov 4: this first said IWER 2.7.0.)
+Each night: scripts/pw-open.mjs (open with ?speed=600), then scripts/emu-win-night.py
+(fridge on circuit 1, wait for dawn; emulated hands only). Dev server run with
+--allow-browser-automation, headless.
+
+1. Normal storage, today's Daily
+   streakBefore 0 -> outcome won, stars 2, streak 1, best 1, 60 real s
+   localStorage["changeover.streak.v1"] = {"lastWinDate":"2026-11-04","count":1,"best":1}
+   after reload: PlayStatus streak 1, best 1
+
+2. Streak key blocked (getItem/setItem throw SecurityError for the game's key only)
+   streakBefore 0 (stored 1 unreadable -> no streak) -> outcome won, stars 2, streak 1 in memory, 62 real s
+   blocked getItem at loadStreak <- PlaySystem.init; blocked setItem at saveStreak <- PlaySystem.update
+   uncaught errors: 0; console errors: 0
+
+3. Replay of another date (?date=2026-11-01), normal storage
+   stored before {"lastWinDate":"2026-11-04","count":1,"best":1} -> outcome won -> stored after identical
+
+Not testable in the emulator: localStorage fully blocked. IWER itself reads localStorage
+unguarded when an XR session starts (recoverPersistentAnchorsFromStorage: JSON.parse(
+localStorage.getItem(...)) with no try/catch, present in the bundled 2.5.0,
+node_modules/@iwsdk/vite-plugin-dev/dist/injection-bundle.js, and in node_modules/iwer 2.7.0,
+lib/session/XRSession.js:466 -> anchors/XRAnchor.js:57), so the session never starts.
+IWER is not in the production build (0 matches in dist/). The game's own code under full
+blocking: PlaySystem.init loads with no game error (only IWER's rejection, on session start).
+Unit tests for blocked/missing/full/corrupted storage: src/model/streak-store.test.ts (16).

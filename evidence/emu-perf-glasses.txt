@@ -1,0 +1,14 @@
+# scripts/emu-perf.py --shots DIR · emulated Meta VR Glasses (IWER 2.5.0 bundled in @iwsdk/vite-plugin-dev 1.0.1, hands), headed (collaborate mode) · 2026-11-15 12:19–12:20 WAT · exit 0
+# Draw calls and triangles from the runtime renderer (scene render-stats) inside the XR session, at night start, with four appliances on, mid dawn reveal and at its end.
+# The emulator's desktop WebGL has no multiview (no OCULUS_multiview / OVR_multiview2), so three.js draws every object once per eye and the counter covers both passes.
+# The budget (<= 100 draw calls, <= 150,000 triangles) is checked per eye pass. As counted per XR frame in the emulator, the maximum is 142 calls, over 100.
+# IWSDK asks for multiview stereo; on a headset that supports it both eyes are drawn in one pass. Not measured on a headset. Not a frame rate.
+info  browser WebGL multiview: no -> 2 eye pass(es) per XR frame
+info  outside XR (one view)     draw calls   59  triangles    1606
+PASS  night-start  per eye pass:    53 draw calls   10754 triangles  | XR frame as counted:  106 calls  21508 tris  programs  11  tray full, panel, flat diorama, street
+PASS  four-on      per eye pass:    69 draw calls   10974 triangles  | XR frame as counted:  138 calls  21948 tris  programs  11  4 appliances on circuits (fridge,fan,tv,laptop)
+PASS  reveal-mid   per eye pass:    71 draw calls   12276 triangles  | XR frame as counted:  142 calls  24552 tris  programs  15  room growing (reveal 0.64); flat and room both drawn
+PASS  reveal-end   per eye pass:    71 draw calls   12276 triangles  | XR frame as counted:  142 calls  24552 tris  programs  15  room full, sun up (reveal 1.00)
+
+budget per eye pass: <= 100 draw calls, <= 150,000 triangles
+max per eye pass: 71 draw calls, 12,276 triangles

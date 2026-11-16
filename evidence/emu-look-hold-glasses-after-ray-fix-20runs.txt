@@ -1,0 +1,151 @@
+# scripts/emu-look-hold.py --runs 20 · emulated Meta VR Glasses (IWER 2.5.0 bundled in @iwsdk/vite-plugin-dev 1.0.1, hands + eye gaze), headed (collaborate mode) · started 2026-11-15 10:46 WAT, finished 11:21 WAT · after the ray fix · exit 0
+page: ?daily&fresh  device: Meta VR Glasses  features: ['local-floor', 'bounded-floor', 'hand-tracking', 'gaze-tracking', 'eye-tracking', 'viewer', 'local']
+run 1/20  PASS  one hand: eyes hold the isolator, the right hand throws, latches
+run 1/20  PASS  look away mid-throw: lever springs back, looked-away, explained
+run 1/20  PASS  two look-aways in a row: two resets, both explained
+run 1/20  PASS  eye tracking lost mid-throw: springs back, tracking-lost
+run 1/20  PASS  gaze never acts alone: eyes on the isolator, no hand on the lever
+run 1/20  PASS  two hands still work with the eyes elsewhere
+run 1/20  PASS  a hand on the isolator wins: a glance away mid-throw is free
+run 2/20  PASS  one hand: eyes hold the isolator, the right hand throws, latches
+run 2/20  PASS  look away mid-throw: lever springs back, looked-away, explained
+run 2/20  PASS  two look-aways in a row: two resets, both explained
+run 2/20  PASS  eye tracking lost mid-throw: springs back, tracking-lost
+run 2/20  PASS  gaze never acts alone: eyes on the isolator, no hand on the lever
+run 2/20  PASS  two hands still work with the eyes elsewhere
+run 2/20  PASS  a hand on the isolator wins: a glance away mid-throw is free
+run 3/20  PASS  one hand: eyes hold the isolator, the right hand throws, latches
+run 3/20  PASS  look away mid-throw: lever springs back, looked-away, explained
+run 3/20  PASS  two look-aways in a row: two resets, both explained
+run 3/20  PASS  eye tracking lost mid-throw: springs back, tracking-lost
+run 3/20  PASS  gaze never acts alone: eyes on the isolator, no hand on the lever
+run 3/20  PASS  two hands still work with the eyes elsewhere
+run 3/20  PASS  a hand on the isolator wins: a glance away mid-throw is free
+run 4/20  PASS  one hand: eyes hold the isolator, the right hand throws, latches
+run 4/20  PASS  look away mid-throw: lever springs back, looked-away, explained
+run 4/20  PASS  two look-aways in a row: two resets, both explained
+run 4/20  PASS  eye tracking lost mid-throw: springs back, tracking-lost
+run 4/20  PASS  gaze never acts alone: eyes on the isolator, no hand on the lever
+run 4/20  PASS  two hands still work with the eyes elsewhere
+run 4/20  PASS  a hand on the isolator wins: a glance away mid-throw is free
+run 5/20  PASS  one hand: eyes hold the isolator, the right hand throws, latches
+run 5/20  PASS  look away mid-throw: lever springs back, looked-away, explained
+run 5/20  PASS  two look-aways in a row: two resets, both explained
+run 5/20  PASS  eye tracking lost mid-throw: springs back, tracking-lost
+run 5/20  PASS  gaze never acts alone: eyes on the isolator, no hand on the lever
+run 5/20  PASS  two hands still work with the eyes elsewhere
+run 5/20  PASS  a hand on the isolator wins: a glance away mid-throw is free
+run 6/20  PASS  one hand: eyes hold the isolator, the right hand throws, latches
+run 6/20  PASS  look away mid-throw: lever springs back, looked-away, explained
+run 6/20  PASS  two look-aways in a row: two resets, both explained
+run 6/20  PASS  eye tracking lost mid-throw: springs back, tracking-lost
+run 6/20  PASS  gaze never acts alone: eyes on the isolator, no hand on the lever
+run 6/20  PASS  two hands still work with the eyes elsewhere
+run 6/20  PASS  a hand on the isolator wins: a glance away mid-throw is free
+run 7/20  PASS  one hand: eyes hold the isolator, the right hand throws, latches
+run 7/20  PASS  look away mid-throw: lever springs back, looked-away, explained
+run 7/20  PASS  two look-aways in a row: two resets, both explained
+run 7/20  PASS  eye tracking lost mid-throw: springs back, tracking-lost
+run 7/20  PASS  gaze never acts alone: eyes on the isolator, no hand on the lever
+run 7/20  PASS  two hands still work with the eyes elsewhere
+run 7/20  PASS  a hand on the isolator wins: a glance away mid-throw is free
+run 8/20  PASS  one hand: eyes hold the isolator, the right hand throws, latches
+run 8/20  PASS  look away mid-throw: lever springs back, looked-away, explained
+run 8/20  PASS  two look-aways in a row: two resets, both explained
+run 8/20  PASS  eye tracking lost mid-throw: springs back, tracking-lost
+run 8/20  PASS  gaze never acts alone: eyes on the isolator, no hand on the lever
+run 8/20  PASS  two hands still work with the eyes elsewhere
+run 8/20  PASS  a hand on the isolator wins: a glance away mid-throw is free
+run 9/20  PASS  one hand: eyes hold the isolator, the right hand throws, latches
+run 9/20  PASS  look away mid-throw: lever springs back, looked-away, explained
+run 9/20  PASS  two look-aways in a row: two resets, both explained
+run 9/20  PASS  eye tracking lost mid-throw: springs back, tracking-lost
+run 9/20  PASS  gaze never acts alone: eyes on the isolator, no hand on the lever
+run 9/20  PASS  two hands still work with the eyes elsewhere
+run 9/20  PASS  a hand on the isolator wins: a glance away mid-throw is free
+run 10/20  PASS  one hand: eyes hold the isolator, the right hand throws, latches
+run 10/20  PASS  look away mid-throw: lever springs back, looked-away, explained
+run 10/20  PASS  two look-aways in a row: two resets, both explained
+run 10/20  PASS  eye tracking lost mid-throw: springs back, tracking-lost
+run 10/20  PASS  gaze never acts alone: eyes on the isolator, no hand on the lever
+run 10/20  PASS  two hands still work with the eyes elsewhere
+run 10/20  PASS  a hand on the isolator wins: a glance away mid-throw is free
+run 11/20  PASS  one hand: eyes hold the isolator, the right hand throws, latches
+run 11/20  PASS  look away mid-throw: lever springs back, looked-away, explained
+run 11/20  PASS  two look-aways in a row: two resets, both explained
+run 11/20  PASS  eye tracking lost mid-throw: springs back, tracking-lost
+run 11/20  PASS  gaze never acts alone: eyes on the isolator, no hand on the lever
+run 11/20  PASS  two hands still work with the eyes elsewhere
+run 11/20  PASS  a hand on the isolator wins: a glance away mid-throw is free
+run 12/20  PASS  one hand: eyes hold the isolator, the right hand throws, latches
+run 12/20  PASS  look away mid-throw: lever springs back, looked-away, explained
+run 12/20  PASS  two look-aways in a row: two resets, both explained
+run 12/20  PASS  eye tracking lost mid-throw: springs back, tracking-lost
+run 12/20  PASS  gaze never acts alone: eyes on the isolator, no hand on the lever
+run 12/20  PASS  two hands still work with the eyes elsewhere
+run 12/20  PASS  a hand on the isolator wins: a glance away mid-throw is free
+run 13/20  PASS  one hand: eyes hold the isolator, the right hand throws, latches
+run 13/20  PASS  look away mid-throw: lever springs back, looked-away, explained
+run 13/20  PASS  two look-aways in a row: two resets, both explained
+run 13/20  PASS  eye tracking lost mid-throw: springs back, tracking-lost
+run 13/20  PASS  gaze never acts alone: eyes on the isolator, no hand on the lever
+run 13/20  PASS  two hands still work with the eyes elsewhere
+run 13/20  PASS  a hand on the isolator wins: a glance away mid-throw is free
+run 14/20  PASS  one hand: eyes hold the isolator, the right hand throws, latches
+run 14/20  PASS  look away mid-throw: lever springs back, looked-away, explained
+run 14/20  PASS  two look-aways in a row: two resets, both explained
+run 14/20  PASS  eye tracking lost mid-throw: springs back, tracking-lost
+run 14/20  PASS  gaze never acts alone: eyes on the isolator, no hand on the lever
+run 14/20  PASS  two hands still work with the eyes elsewhere
+run 14/20  PASS  a hand on the isolator wins: a glance away mid-throw is free
+run 15/20  PASS  one hand: eyes hold the isolator, the right hand throws, latches
+run 15/20  PASS  look away mid-throw: lever springs back, looked-away, explained
+run 15/20  PASS  two look-aways in a row: two resets, both explained
+run 15/20  PASS  eye tracking lost mid-throw: springs back, tracking-lost
+run 15/20  PASS  gaze never acts alone: eyes on the isolator, no hand on the lever
+run 15/20  PASS  two hands still work with the eyes elsewhere
+run 15/20  PASS  a hand on the isolator wins: a glance away mid-throw is free
+run 16/20  PASS  one hand: eyes hold the isolator, the right hand throws, latches
+run 16/20  PASS  look away mid-throw: lever springs back, looked-away, explained
+run 16/20  PASS  two look-aways in a row: two resets, both explained
+run 16/20  PASS  eye tracking lost mid-throw: springs back, tracking-lost
+run 16/20  PASS  gaze never acts alone: eyes on the isolator, no hand on the lever
+run 16/20  PASS  two hands still work with the eyes elsewhere
+run 16/20  PASS  a hand on the isolator wins: a glance away mid-throw is free
+run 17/20  PASS  one hand: eyes hold the isolator, the right hand throws, latches
+run 17/20  PASS  look away mid-throw: lever springs back, looked-away, explained
+run 17/20  PASS  two look-aways in a row: two resets, both explained
+run 17/20  PASS  eye tracking lost mid-throw: springs back, tracking-lost
+run 17/20  PASS  gaze never acts alone: eyes on the isolator, no hand on the lever
+run 17/20  PASS  two hands still work with the eyes elsewhere
+run 17/20  PASS  a hand on the isolator wins: a glance away mid-throw is free
+run 18/20  PASS  one hand: eyes hold the isolator, the right hand throws, latches
+run 18/20  PASS  look away mid-throw: lever springs back, looked-away, explained
+run 18/20  PASS  two look-aways in a row: two resets, both explained
+run 18/20  PASS  eye tracking lost mid-throw: springs back, tracking-lost
+run 18/20  PASS  gaze never acts alone: eyes on the isolator, no hand on the lever
+run 18/20  PASS  two hands still work with the eyes elsewhere
+run 18/20  PASS  a hand on the isolator wins: a glance away mid-throw is free
+run 19/20  PASS  one hand: eyes hold the isolator, the right hand throws, latches
+run 19/20  PASS  look away mid-throw: lever springs back, looked-away, explained
+run 19/20  PASS  two look-aways in a row: two resets, both explained
+run 19/20  PASS  eye tracking lost mid-throw: springs back, tracking-lost
+run 19/20  PASS  gaze never acts alone: eyes on the isolator, no hand on the lever
+run 19/20  PASS  two hands still work with the eyes elsewhere
+run 19/20  PASS  a hand on the isolator wins: a glance away mid-throw is free
+run 20/20  PASS  one hand: eyes hold the isolator, the right hand throws, latches
+run 20/20  PASS  look away mid-throw: lever springs back, looked-away, explained
+run 20/20  PASS  two look-aways in a row: two resets, both explained
+run 20/20  PASS  eye tracking lost mid-throw: springs back, tracking-lost
+run 20/20  PASS  gaze never acts alone: eyes on the isolator, no hand on the lever
+run 20/20  PASS  two hands still work with the eyes elsewhere
+run 20/20  PASS  a hand on the isolator wins: a glance away mid-throw is free
+
+SUMMARY
+  20/20  one hand: eyes hold the isolator, the right hand throws, latches
+  20/20  look away mid-throw: lever springs back, looked-away, explained
+  20/20  two look-aways in a row: two resets, both explained
+  20/20  eye tracking lost mid-throw: springs back, tracking-lost
+  20/20  gaze never acts alone: eyes on the isolator, no hand on the lever
+  20/20  two hands still work with the eyes elsewhere
+  20/20  a hand on the isolator wins: a glance away mid-throw is free

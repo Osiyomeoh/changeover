@@ -1,0 +1,173 @@
+# scripts/emu-play.py --runs 20 · emulated Meta VR Glasses (IWER 2.5.0 bundled in @iwsdk/vite-plugin-dev 1.0.1, hands + eye gaze), headless · 2026-11-15 00:55 WAT
+# Replaces the Nov 4 13:14 file of this name, which ends partway through run 4 (24 PASS, 3 FAIL, no summary; cause not recorded). Neither it nor the 13:00 attempt (evidence/emu-play-20runs-browser-hang-1300WAT.txt) reached 20 runs.
+run 1/20  PASS  initial state: not started, nothing on
+run 1/20  PASS  pinch fridge onto circuit 1 starts the night
+run 1/20  PASS  iron overloads the inverter and trips
+run 1/20  PASS  generator refused without changeover (backfeed)
+run 1/20  PASS  generator runs after isolate + throw
+run 1/20  PASS  tracking lost while holding a token returns it
+run 1/20  PASS  each of 8 tokens grabs itself, both hands
+run 1/20  PASS  tracking lost mid-pinch on the cord: one pull, cord not held
+run 2/20  PASS  initial state: not started, nothing on
+run 2/20  PASS  pinch fridge onto circuit 1 starts the night
+run 2/20  PASS  iron overloads the inverter and trips
+run 2/20  PASS  generator refused without changeover (backfeed)
+run 2/20  PASS  generator runs after isolate + throw
+run 2/20  PASS  tracking lost while holding a token returns it
+run 2/20  PASS  each of 8 tokens grabs itself, both hands
+run 2/20  PASS  tracking lost mid-pinch on the cord: one pull, cord not held
+run 3/20  PASS  initial state: not started, nothing on
+run 3/20  PASS  pinch fridge onto circuit 1 starts the night
+run 3/20  PASS  iron overloads the inverter and trips
+run 3/20  PASS  generator refused without changeover (backfeed)
+run 3/20  PASS  generator runs after isolate + throw
+run 3/20  PASS  tracking lost while holding a token returns it
+run 3/20  PASS  each of 8 tokens grabs itself, both hands
+run 3/20  PASS  tracking lost mid-pinch on the cord: one pull, cord not held
+run 4/20  PASS  initial state: not started, nothing on
+run 4/20  PASS  pinch fridge onto circuit 1 starts the night
+run 4/20  PASS  iron overloads the inverter and trips
+run 4/20  PASS  generator refused without changeover (backfeed)
+run 4/20  PASS  generator runs after isolate + throw
+run 4/20  PASS  tracking lost while holding a token returns it
+run 4/20  PASS  each of 8 tokens grabs itself, both hands
+run 4/20  PASS  tracking lost mid-pinch on the cord: one pull, cord not held
+run 5/20  PASS  initial state: not started, nothing on
+run 5/20  PASS  pinch fridge onto circuit 1 starts the night
+run 5/20  PASS  iron overloads the inverter and trips
+run 5/20  PASS  generator refused without changeover (backfeed)
+run 5/20  PASS  generator runs after isolate + throw
+run 5/20  PASS  tracking lost while holding a token returns it
+run 5/20  PASS  each of 8 tokens grabs itself, both hands
+run 5/20  PASS  tracking lost mid-pinch on the cord: one pull, cord not held
+run 6/20  PASS  initial state: not started, nothing on
+run 6/20  PASS  pinch fridge onto circuit 1 starts the night
+run 6/20  PASS  iron overloads the inverter and trips
+run 6/20  PASS  generator refused without changeover (backfeed)
+run 6/20  PASS  generator runs after isolate + throw
+run 6/20  PASS  tracking lost while holding a token returns it
+run 6/20  PASS  each of 8 tokens grabs itself, both hands
+run 6/20  PASS  tracking lost mid-pinch on the cord: one pull, cord not held
+run 7/20  PASS  initial state: not started, nothing on
+run 7/20  PASS  pinch fridge onto circuit 1 starts the night
+run 7/20  PASS  iron overloads the inverter and trips
+run 7/20  PASS  generator refused without changeover (backfeed)
+run 7/20  PASS  generator runs after isolate + throw
+run 7/20  PASS  tracking lost while holding a token returns it
+run 7/20  PASS  each of 8 tokens grabs itself, both hands
+run 7/20  PASS  tracking lost mid-pinch on the cord: one pull, cord not held
+run 8/20  PASS  initial state: not started, nothing on
+run 8/20  PASS  pinch fridge onto circuit 1 starts the night
+run 8/20  PASS  iron overloads the inverter and trips
+run 8/20  PASS  generator refused without changeover (backfeed)
+run 8/20  PASS  generator runs after isolate + throw
+run 8/20  PASS  tracking lost while holding a token returns it
+run 8/20  PASS  each of 8 tokens grabs itself, both hands
+run 8/20  PASS  tracking lost mid-pinch on the cord: one pull, cord not held
+run 9/20  PASS  initial state: not started, nothing on
+run 9/20  PASS  pinch fridge onto circuit 1 starts the night
+run 9/20  PASS  iron overloads the inverter and trips
+run 9/20  PASS  generator refused without changeover (backfeed)
+run 9/20  PASS  generator runs after isolate + throw
+run 9/20  PASS  tracking lost while holding a token returns it
+run 9/20  PASS  each of 8 tokens grabs itself, both hands
+run 9/20  PASS  tracking lost mid-pinch on the cord: one pull, cord not held
+run 10/20  PASS  initial state: not started, nothing on
+run 10/20  PASS  pinch fridge onto circuit 1 starts the night
+run 10/20  PASS  iron overloads the inverter and trips
+run 10/20  PASS  generator refused without changeover (backfeed)
+run 10/20  PASS  generator runs after isolate + throw
+run 10/20  PASS  tracking lost while holding a token returns it
+run 10/20  PASS  each of 8 tokens grabs itself, both hands
+run 10/20  PASS  tracking lost mid-pinch on the cord: one pull, cord not held
+run 11/20  PASS  initial state: not started, nothing on
+run 11/20  PASS  pinch fridge onto circuit 1 starts the night
+run 11/20  PASS  iron overloads the inverter and trips
+run 11/20  PASS  generator refused without changeover (backfeed)
+run 11/20  PASS  generator runs after isolate + throw
+run 11/20  PASS  tracking lost while holding a token returns it
+run 11/20  PASS  each of 8 tokens grabs itself, both hands
+run 11/20  PASS  tracking lost mid-pinch on the cord: one pull, cord not held
+run 12/20  PASS  initial state: not started, nothing on
+run 12/20  PASS  pinch fridge onto circuit 1 starts the night
+run 12/20  PASS  iron overloads the inverter and trips
+run 12/20  PASS  generator refused without changeover (backfeed)
+run 12/20  PASS  generator runs after isolate + throw
+run 12/20  PASS  tracking lost while holding a token returns it
+run 12/20  PASS  each of 8 tokens grabs itself, both hands
+run 12/20  PASS  tracking lost mid-pinch on the cord: one pull, cord not held
+run 13/20  PASS  initial state: not started, nothing on
+run 13/20  PASS  pinch fridge onto circuit 1 starts the night
+run 13/20  PASS  iron overloads the inverter and trips
+run 13/20  PASS  generator refused without changeover (backfeed)
+run 13/20  PASS  generator runs after isolate + throw
+run 13/20  PASS  tracking lost while holding a token returns it
+run 13/20  PASS  each of 8 tokens grabs itself, both hands
+run 13/20  PASS  tracking lost mid-pinch on the cord: one pull, cord not held
+run 14/20  PASS  initial state: not started, nothing on
+run 14/20  PASS  pinch fridge onto circuit 1 starts the night
+run 14/20  PASS  iron overloads the inverter and trips
+run 14/20  PASS  generator refused without changeover (backfeed)
+run 14/20  PASS  generator runs after isolate + throw
+run 14/20  PASS  tracking lost while holding a token returns it
+run 14/20  PASS  each of 8 tokens grabs itself, both hands
+run 14/20  PASS  tracking lost mid-pinch on the cord: one pull, cord not held
+run 15/20  PASS  initial state: not started, nothing on
+run 15/20  PASS  pinch fridge onto circuit 1 starts the night
+run 15/20  PASS  iron overloads the inverter and trips
+run 15/20  PASS  generator refused without changeover (backfeed)
+run 15/20  PASS  generator runs after isolate + throw
+run 15/20  PASS  tracking lost while holding a token returns it
+run 15/20  PASS  each of 8 tokens grabs itself, both hands
+run 15/20  PASS  tracking lost mid-pinch on the cord: one pull, cord not held
+run 16/20  PASS  initial state: not started, nothing on
+run 16/20  PASS  pinch fridge onto circuit 1 starts the night
+run 16/20  PASS  iron overloads the inverter and trips
+run 16/20  PASS  generator refused without changeover (backfeed)
+run 16/20  PASS  generator runs after isolate + throw
+run 16/20  PASS  tracking lost while holding a token returns it
+run 16/20  PASS  each of 8 tokens grabs itself, both hands
+run 16/20  PASS  tracking lost mid-pinch on the cord: one pull, cord not held
+run 17/20  PASS  initial state: not started, nothing on
+run 17/20  PASS  pinch fridge onto circuit 1 starts the night
+run 17/20  PASS  iron overloads the inverter and trips
+run 17/20  PASS  generator refused without changeover (backfeed)
+run 17/20  PASS  generator runs after isolate + throw
+run 17/20  PASS  tracking lost while holding a token returns it
+run 17/20  PASS  each of 8 tokens grabs itself, both hands
+run 17/20  PASS  tracking lost mid-pinch on the cord: one pull, cord not held
+run 18/20  PASS  initial state: not started, nothing on
+run 18/20  PASS  pinch fridge onto circuit 1 starts the night
+run 18/20  PASS  iron overloads the inverter and trips
+run 18/20  PASS  generator refused without changeover (backfeed)
+run 18/20  PASS  generator runs after isolate + throw
+run 18/20  PASS  tracking lost while holding a token returns it
+run 18/20  PASS  each of 8 tokens grabs itself, both hands
+run 18/20  PASS  tracking lost mid-pinch on the cord: one pull, cord not held
+run 19/20  PASS  initial state: not started, nothing on
+run 19/20  PASS  pinch fridge onto circuit 1 starts the night
+run 19/20  PASS  iron overloads the inverter and trips
+run 19/20  PASS  generator refused without changeover (backfeed)
+run 19/20  PASS  generator runs after isolate + throw
+run 19/20  PASS  tracking lost while holding a token returns it
+run 19/20  PASS  each of 8 tokens grabs itself, both hands
+run 19/20  PASS  tracking lost mid-pinch on the cord: one pull, cord not held
+run 20/20  PASS  initial state: not started, nothing on
+run 20/20  PASS  pinch fridge onto circuit 1 starts the night
+run 20/20  PASS  iron overloads the inverter and trips
+run 20/20  PASS  generator refused without changeover (backfeed)
+run 20/20  PASS  generator runs after isolate + throw
+run 20/20  PASS  tracking lost while holding a token returns it
+run 20/20  PASS  each of 8 tokens grabs itself, both hands
+run 20/20  PASS  tracking lost mid-pinch on the cord: one pull, cord not held
+
+SUMMARY
+  20/20  initial state: not started, nothing on
+  20/20  pinch fridge onto circuit 1 starts the night
+  20/20  iron overloads the inverter and trips
+  20/20  generator refused without changeover (backfeed)
+  20/20  generator runs after isolate + throw
+  20/20  tracking lost while holding a token returns it
+  20/20  each of 8 tokens grabs itself, both hands
+  20/20  tracking lost mid-pinch on the cord: one pull, cord not held
+# exit 0

@@ -1,0 +1,50 @@
+# python3 scripts/emu-film.py --auto, Nov 15 2026 (headed emulator, metaVRGlasses, IWER 2.5.0)
+# All 8 video shots played with scripted hands and eyes; each take checked against PlayStatus/InterlockStatus.
+# Countdown lines removed. Last line: the script's exit code.
+
+Shot 1 'title' is set up: the dark flat on the table
+    15.7 s  shot 1 title START
+    28.7 s  shot 1 title END  TAKE OK
+  TAKE OK  {"outcome": "playing", "started": false}
+
+Shot 2 'night1' is set up: Night 1: fridge, then fan, onto circuits
+    44.1 s  shot 2 night1 START
+    60.2 s  shot 2 night1 END  TAKE OK
+  TAKE OK  {"on": "fridge,fan", "loadW": 306.6666564941406, "caption": "Ceiling fan on."}
+
+Shot 3 'overload' is set up: fridge + iron: 2,042 W > 1,500 W, everything trips
+    74.8 s  shot 3 overload START
+    90.4 s  shot 3 overload END  TAKE OK
+  TAKE OK  {"trips": 1, "caption": "Overload: 2,042 W > 1,500 W limit. Tripped."}
+
+Shot 4 'backfeed' is set up: the cord pulled without the changeover is refused
+   105.1 s  shot 4 backfeed START
+   121.0 s  shot 4 backfeed END  TAKE OK
+  TAKE OK  {"backfeedRefusals": 1, "source": "battery", "caption": "Refused: not isolated. The generator would backfeed the street line and could kill a line worker. Isolate, then throw the changeover."}
+
+Shot 5 'eyes' is set up: eyes hold the isolator, one hand throws the lever, the generator runs
+   136.4 s  shot 5 eyes START
+   165.6 s  shot 5 eyes END  TAKE OK
+  TAKE OK  {"latch": {"phase": "latched", "energised": true, "isolatorHolder": "eyes", "leftTracked": false}, "source": "generator", "caption": "Generator running. The battery rests."}
+
+Shot 6 'lookaway' is set up: look away mid-throw: the lever springs back
+   180.6 s  shot 6 lookaway START
+   196.0 s  shot 6 lookaway END  TAKE OK
+  TAKE OK  {"mid": {"phase": "throwing", "isolatorHolder": "eyes"}, "lastReset": "looked-away", "caption": "You looked away, so the lever sprang back. Keep your eyes on the red isolator until the lever latches."}
+
+Shot 7 'dawn' is set up: dawn: the room grows, the fan turns over the child
+   210.9 s  shot 7 dawn START
+   263.0 s    DAWN: the night is won, the room starts to grow
+   287.8 s  shot 7 dawn END  TAKE OK
+  TAKE OK  {"reveal": 1, "revealOn": "fridge,fan"}
+
+Shot 8 'daily' is set up: a Daily Outage won: Streak 1 · best 1
+   303.0 s  shot 8 daily START
+   360.9 s    DAWN: the Daily is won; the panel shows the streak
+   373.9 s  shot 8 daily END  TAKE OK
+  TAKE OK  {"streak": 1, "streakBest": 1}
+
+title:ok  night1:ok  overload:ok  backfeed:ok  eyes:ok  lookaway:ok  dawn:ok  daily:ok
+Closing card: "Recorded in IWSDK's emulator (IWER) with scripted hands and eyes. No headset was used."
+Cue log: .stills-tmp/film-cues.txt
+exit 0

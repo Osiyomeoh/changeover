@@ -1,0 +1,173 @@
+# scripts/emu-look.py --runs 20 · emulated Meta VR Glasses (IWER 2.5.0 bundled in @iwsdk/vite-plugin-dev 1.0.1, hands + eye gaze), headless · 2026-11-15 02:08 WAT · page ?daily&fresh
+# Regression run after the hand-ray pointer-capture fix (src/play-system.ts makeLook). The Nov 4 run on the emulated Quest Pro is evidence/emu-look-20runs.txt.
+run 1/20  PASS  each of 8 tokens and the cord: gaze hovers only itself
+run 1/20  PASS  look + pinch plugs the fridge (source gaze, nothing grabbed)
+run 1/20  PASS  left-hand pinch commits a gaze selection too
+run 1/20  PASS  look + pinch on a plugged token unplugs it
+run 1/20  PASS  pinch while looking at nothing does nothing
+run 1/20  PASS  look + pinch on the cord: refused, backfeed
+run 1/20  PASS  fifth appliance with all 4 circuits full is refused with a reason
+run 1/20  PASS  look + pinch iron after fridge overloads and trips
+run 2/20  PASS  each of 8 tokens and the cord: gaze hovers only itself
+run 2/20  PASS  look + pinch plugs the fridge (source gaze, nothing grabbed)
+run 2/20  PASS  left-hand pinch commits a gaze selection too
+run 2/20  PASS  look + pinch on a plugged token unplugs it
+run 2/20  PASS  pinch while looking at nothing does nothing
+run 2/20  PASS  look + pinch on the cord: refused, backfeed
+run 2/20  PASS  fifth appliance with all 4 circuits full is refused with a reason
+run 2/20  PASS  look + pinch iron after fridge overloads and trips
+run 3/20  PASS  each of 8 tokens and the cord: gaze hovers only itself
+run 3/20  PASS  look + pinch plugs the fridge (source gaze, nothing grabbed)
+run 3/20  PASS  left-hand pinch commits a gaze selection too
+run 3/20  PASS  look + pinch on a plugged token unplugs it
+run 3/20  PASS  pinch while looking at nothing does nothing
+run 3/20  PASS  look + pinch on the cord: refused, backfeed
+run 3/20  PASS  fifth appliance with all 4 circuits full is refused with a reason
+run 3/20  PASS  look + pinch iron after fridge overloads and trips
+run 4/20  PASS  each of 8 tokens and the cord: gaze hovers only itself
+run 4/20  PASS  look + pinch plugs the fridge (source gaze, nothing grabbed)
+run 4/20  PASS  left-hand pinch commits a gaze selection too
+run 4/20  PASS  look + pinch on a plugged token unplugs it
+run 4/20  PASS  pinch while looking at nothing does nothing
+run 4/20  PASS  look + pinch on the cord: refused, backfeed
+run 4/20  PASS  fifth appliance with all 4 circuits full is refused with a reason
+run 4/20  PASS  look + pinch iron after fridge overloads and trips
+run 5/20  PASS  each of 8 tokens and the cord: gaze hovers only itself
+run 5/20  PASS  look + pinch plugs the fridge (source gaze, nothing grabbed)
+run 5/20  PASS  left-hand pinch commits a gaze selection too
+run 5/20  PASS  look + pinch on a plugged token unplugs it
+run 5/20  PASS  pinch while looking at nothing does nothing
+run 5/20  PASS  look + pinch on the cord: refused, backfeed
+run 5/20  PASS  fifth appliance with all 4 circuits full is refused with a reason
+run 5/20  PASS  look + pinch iron after fridge overloads and trips
+run 6/20  PASS  each of 8 tokens and the cord: gaze hovers only itself
+run 6/20  PASS  look + pinch plugs the fridge (source gaze, nothing grabbed)
+run 6/20  PASS  left-hand pinch commits a gaze selection too
+run 6/20  PASS  look + pinch on a plugged token unplugs it
+run 6/20  PASS  pinch while looking at nothing does nothing
+run 6/20  PASS  look + pinch on the cord: refused, backfeed
+run 6/20  PASS  fifth appliance with all 4 circuits full is refused with a reason
+run 6/20  PASS  look + pinch iron after fridge overloads and trips
+run 7/20  PASS  each of 8 tokens and the cord: gaze hovers only itself
+run 7/20  PASS  look + pinch plugs the fridge (source gaze, nothing grabbed)
+run 7/20  PASS  left-hand pinch commits a gaze selection too
+run 7/20  PASS  look + pinch on a plugged token unplugs it
+run 7/20  PASS  pinch while looking at nothing does nothing
+run 7/20  PASS  look + pinch on the cord: refused, backfeed
+run 7/20  PASS  fifth appliance with all 4 circuits full is refused with a reason
+run 7/20  PASS  look + pinch iron after fridge overloads and trips
+run 8/20  PASS  each of 8 tokens and the cord: gaze hovers only itself
+run 8/20  PASS  look + pinch plugs the fridge (source gaze, nothing grabbed)
+run 8/20  PASS  left-hand pinch commits a gaze selection too
+run 8/20  PASS  look + pinch on a plugged token unplugs it
+run 8/20  PASS  pinch while looking at nothing does nothing
+run 8/20  PASS  look + pinch on the cord: refused, backfeed
+run 8/20  PASS  fifth appliance with all 4 circuits full is refused with a reason
+run 8/20  PASS  look + pinch iron after fridge overloads and trips
+run 9/20  PASS  each of 8 tokens and the cord: gaze hovers only itself
+run 9/20  PASS  look + pinch plugs the fridge (source gaze, nothing grabbed)
+run 9/20  PASS  left-hand pinch commits a gaze selection too
+run 9/20  PASS  look + pinch on a plugged token unplugs it
+run 9/20  PASS  pinch while looking at nothing does nothing
+run 9/20  PASS  look + pinch on the cord: refused, backfeed
+run 9/20  PASS  fifth appliance with all 4 circuits full is refused with a reason
+run 9/20  PASS  look + pinch iron after fridge overloads and trips
+run 10/20  PASS  each of 8 tokens and the cord: gaze hovers only itself
+run 10/20  PASS  look + pinch plugs the fridge (source gaze, nothing grabbed)
+run 10/20  PASS  left-hand pinch commits a gaze selection too
+run 10/20  PASS  look + pinch on a plugged token unplugs it
+run 10/20  PASS  pinch while looking at nothing does nothing
+run 10/20  PASS  look + pinch on the cord: refused, backfeed
+run 10/20  PASS  fifth appliance with all 4 circuits full is refused with a reason
+run 10/20  PASS  look + pinch iron after fridge overloads and trips
+run 11/20  PASS  each of 8 tokens and the cord: gaze hovers only itself
+run 11/20  PASS  look + pinch plugs the fridge (source gaze, nothing grabbed)
+run 11/20  PASS  left-hand pinch commits a gaze selection too
+run 11/20  PASS  look + pinch on a plugged token unplugs it
+run 11/20  PASS  pinch while looking at nothing does nothing
+run 11/20  PASS  look + pinch on the cord: refused, backfeed
+run 11/20  PASS  fifth appliance with all 4 circuits full is refused with a reason
+run 11/20  PASS  look + pinch iron after fridge overloads and trips
+run 12/20  PASS  each of 8 tokens and the cord: gaze hovers only itself
+run 12/20  PASS  look + pinch plugs the fridge (source gaze, nothing grabbed)
+run 12/20  PASS  left-hand pinch commits a gaze selection too
+run 12/20  PASS  look + pinch on a plugged token unplugs it
+run 12/20  PASS  pinch while looking at nothing does nothing
+run 12/20  PASS  look + pinch on the cord: refused, backfeed
+run 12/20  PASS  fifth appliance with all 4 circuits full is refused with a reason
+run 12/20  PASS  look + pinch iron after fridge overloads and trips
+run 13/20  PASS  each of 8 tokens and the cord: gaze hovers only itself
+run 13/20  PASS  look + pinch plugs the fridge (source gaze, nothing grabbed)
+run 13/20  PASS  left-hand pinch commits a gaze selection too
+run 13/20  PASS  look + pinch on a plugged token unplugs it
+run 13/20  PASS  pinch while looking at nothing does nothing
+run 13/20  PASS  look + pinch on the cord: refused, backfeed
+run 13/20  PASS  fifth appliance with all 4 circuits full is refused with a reason
+run 13/20  PASS  look + pinch iron after fridge overloads and trips
+run 14/20  PASS  each of 8 tokens and the cord: gaze hovers only itself
+run 14/20  PASS  look + pinch plugs the fridge (source gaze, nothing grabbed)
+run 14/20  PASS  left-hand pinch commits a gaze selection too
+run 14/20  PASS  look + pinch on a plugged token unplugs it
+run 14/20  PASS  pinch while looking at nothing does nothing
+run 14/20  PASS  look + pinch on the cord: refused, backfeed
+run 14/20  PASS  fifth appliance with all 4 circuits full is refused with a reason
+run 14/20  PASS  look + pinch iron after fridge overloads and trips
+run 15/20  PASS  each of 8 tokens and the cord: gaze hovers only itself
+run 15/20  PASS  look + pinch plugs the fridge (source gaze, nothing grabbed)
+run 15/20  PASS  left-hand pinch commits a gaze selection too
+run 15/20  PASS  look + pinch on a plugged token unplugs it
+run 15/20  PASS  pinch while looking at nothing does nothing
+run 15/20  PASS  look + pinch on the cord: refused, backfeed
+run 15/20  PASS  fifth appliance with all 4 circuits full is refused with a reason
+run 15/20  PASS  look + pinch iron after fridge overloads and trips
+run 16/20  PASS  each of 8 tokens and the cord: gaze hovers only itself
+run 16/20  PASS  look + pinch plugs the fridge (source gaze, nothing grabbed)
+run 16/20  PASS  left-hand pinch commits a gaze selection too
+run 16/20  PASS  look + pinch on a plugged token unplugs it
+run 16/20  PASS  pinch while looking at nothing does nothing
+run 16/20  PASS  look + pinch on the cord: refused, backfeed
+run 16/20  PASS  fifth appliance with all 4 circuits full is refused with a reason
+run 16/20  PASS  look + pinch iron after fridge overloads and trips
+run 17/20  PASS  each of 8 tokens and the cord: gaze hovers only itself
+run 17/20  PASS  look + pinch plugs the fridge (source gaze, nothing grabbed)
+run 17/20  PASS  left-hand pinch commits a gaze selection too
+run 17/20  PASS  look + pinch on a plugged token unplugs it
+run 17/20  PASS  pinch while looking at nothing does nothing
+run 17/20  PASS  look + pinch on the cord: refused, backfeed
+run 17/20  PASS  fifth appliance with all 4 circuits full is refused with a reason
+run 17/20  PASS  look + pinch iron after fridge overloads and trips
+run 18/20  PASS  each of 8 tokens and the cord: gaze hovers only itself
+run 18/20  PASS  look + pinch plugs the fridge (source gaze, nothing grabbed)
+run 18/20  PASS  left-hand pinch commits a gaze selection too
+run 18/20  PASS  look + pinch on a plugged token unplugs it
+run 18/20  PASS  pinch while looking at nothing does nothing
+run 18/20  PASS  look + pinch on the cord: refused, backfeed
+run 18/20  PASS  fifth appliance with all 4 circuits full is refused with a reason
+run 18/20  PASS  look + pinch iron after fridge overloads and trips
+run 19/20  PASS  each of 8 tokens and the cord: gaze hovers only itself
+run 19/20  PASS  look + pinch plugs the fridge (source gaze, nothing grabbed)
+run 19/20  PASS  left-hand pinch commits a gaze selection too
+run 19/20  PASS  look + pinch on a plugged token unplugs it
+run 19/20  PASS  pinch while looking at nothing does nothing
+run 19/20  PASS  look + pinch on the cord: refused, backfeed
+run 19/20  PASS  fifth appliance with all 4 circuits full is refused with a reason
+run 19/20  PASS  look + pinch iron after fridge overloads and trips
+run 20/20  PASS  each of 8 tokens and the cord: gaze hovers only itself
+run 20/20  PASS  look + pinch plugs the fridge (source gaze, nothing grabbed)
+run 20/20  PASS  left-hand pinch commits a gaze selection too
+run 20/20  PASS  look + pinch on a plugged token unplugs it
+run 20/20  PASS  pinch while looking at nothing does nothing
+run 20/20  PASS  look + pinch on the cord: refused, backfeed
+run 20/20  PASS  fifth appliance with all 4 circuits full is refused with a reason
+run 20/20  PASS  look + pinch iron after fridge overloads and trips
+
+SUMMARY
+  20/20  each of 8 tokens and the cord: gaze hovers only itself
+  20/20  look + pinch plugs the fridge (source gaze, nothing grabbed)
+  20/20  left-hand pinch commits a gaze selection too
+  20/20  look + pinch on a plugged token unplugs it
+  20/20  pinch while looking at nothing does nothing
+  20/20  look + pinch on the cord: refused, backfeed
+  20/20  fifth appliance with all 4 circuits full is refused with a reason
+  20/20  look + pinch iron after fridge overloads and trips
+# exit 0

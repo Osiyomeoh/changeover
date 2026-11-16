@@ -1,0 +1,88 @@
+# scripts/emu-interlock.py --runs 20 · emulated Meta Quest 3 (IWER 2.5.0 bundled in @iwsdk/vite-plugin-dev 1.0.1, hands, no eye tracking), headless · 2026-11-15 01:39 WAT
+run 1/20  PASS  happy: isolate + throw latches ON
+run 1/20  PASS  tracking lost mid-throw springs back
+run 1/20  PASS  throw without isolating is refused
+run 1/20  PASS  isolator released mid-throw springs back
+run 2/20  PASS  happy: isolate + throw latches ON
+run 2/20  PASS  tracking lost mid-throw springs back
+run 2/20  PASS  throw without isolating is refused
+run 2/20  PASS  isolator released mid-throw springs back
+run 3/20  PASS  happy: isolate + throw latches ON
+run 3/20  PASS  tracking lost mid-throw springs back
+run 3/20  PASS  throw without isolating is refused
+run 3/20  PASS  isolator released mid-throw springs back
+run 4/20  PASS  happy: isolate + throw latches ON
+run 4/20  PASS  tracking lost mid-throw springs back
+run 4/20  PASS  throw without isolating is refused
+run 4/20  PASS  isolator released mid-throw springs back
+run 5/20  PASS  happy: isolate + throw latches ON
+run 5/20  PASS  tracking lost mid-throw springs back
+run 5/20  PASS  throw without isolating is refused
+run 5/20  PASS  isolator released mid-throw springs back
+run 6/20  PASS  happy: isolate + throw latches ON
+run 6/20  PASS  tracking lost mid-throw springs back
+run 6/20  PASS  throw without isolating is refused
+run 6/20  PASS  isolator released mid-throw springs back
+run 7/20  PASS  happy: isolate + throw latches ON
+run 7/20  PASS  tracking lost mid-throw springs back
+run 7/20  PASS  throw without isolating is refused
+run 7/20  PASS  isolator released mid-throw springs back
+run 8/20  PASS  happy: isolate + throw latches ON
+run 8/20  PASS  tracking lost mid-throw springs back
+run 8/20  PASS  throw without isolating is refused
+run 8/20  PASS  isolator released mid-throw springs back
+run 9/20  PASS  happy: isolate + throw latches ON
+run 9/20  PASS  tracking lost mid-throw springs back
+run 9/20  PASS  throw without isolating is refused
+run 9/20  PASS  isolator released mid-throw springs back
+run 10/20  PASS  happy: isolate + throw latches ON
+run 10/20  PASS  tracking lost mid-throw springs back
+run 10/20  PASS  throw without isolating is refused
+run 10/20  PASS  isolator released mid-throw springs back
+run 11/20  PASS  happy: isolate + throw latches ON
+run 11/20  PASS  tracking lost mid-throw springs back
+run 11/20  PASS  throw without isolating is refused
+run 11/20  PASS  isolator released mid-throw springs back
+run 12/20  PASS  happy: isolate + throw latches ON
+run 12/20  PASS  tracking lost mid-throw springs back
+run 12/20  PASS  throw without isolating is refused
+run 12/20  PASS  isolator released mid-throw springs back
+run 13/20  PASS  happy: isolate + throw latches ON
+run 13/20  PASS  tracking lost mid-throw springs back
+run 13/20  PASS  throw without isolating is refused
+run 13/20  PASS  isolator released mid-throw springs back
+run 14/20  PASS  happy: isolate + throw latches ON
+run 14/20  PASS  tracking lost mid-throw springs back
+run 14/20  PASS  throw without isolating is refused
+run 14/20  PASS  isolator released mid-throw springs back
+run 15/20  PASS  happy: isolate + throw latches ON
+run 15/20  PASS  tracking lost mid-throw springs back
+run 15/20  PASS  throw without isolating is refused
+run 15/20  PASS  isolator released mid-throw springs back
+run 16/20  PASS  happy: isolate + throw latches ON
+run 16/20  PASS  tracking lost mid-throw springs back
+run 16/20  PASS  throw without isolating is refused
+run 16/20  PASS  isolator released mid-throw springs back
+run 17/20  PASS  happy: isolate + throw latches ON
+run 17/20  PASS  tracking lost mid-throw springs back
+run 17/20  PASS  throw without isolating is refused
+run 17/20  PASS  isolator released mid-throw springs back
+run 18/20  PASS  happy: isolate + throw latches ON
+run 18/20  PASS  tracking lost mid-throw springs back
+run 18/20  PASS  throw without isolating is refused
+run 18/20  PASS  isolator released mid-throw springs back
+run 19/20  PASS  happy: isolate + throw latches ON
+run 19/20  PASS  tracking lost mid-throw springs back
+run 19/20  PASS  throw without isolating is refused
+run 19/20  PASS  isolator released mid-throw springs back
+run 20/20  PASS  happy: isolate + throw latches ON
+run 20/20  PASS  tracking lost mid-throw springs back
+run 20/20  PASS  throw without isolating is refused
+run 20/20  PASS  isolator released mid-throw springs back
+
+SUMMARY
+  20/20  happy: isolate + throw latches ON
+  20/20  tracking lost mid-throw springs back
+  20/20  throw without isolating is refused
+  20/20  isolator released mid-throw springs back
+# exit 0

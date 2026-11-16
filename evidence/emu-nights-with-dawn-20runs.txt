@@ -1,0 +1,67 @@
+# scripts/emu-nights.py --runs 20 · emulated Meta VR Glasses (IWER 2.5.0 bundled in @iwsdk/vite-plugin-dev 1.0.1, hands), headed (collaborate mode) · 2026-11-15 12:23–13:07 WAT · exit 0 · with the dawn reveal wired in (dawn grows the room before NEXT is pinched)
+run 1/20  PASS  Night 1 to dawn (plug + dawn cues), then NEXT starts Night 2 (no generator on 1–2)
+run 1/20  PASS  fridge spoils (spoiled cue), then RETRY restarts the same night
+run 1/20  PASS  reload resumes the night on the battery; clock waits outside XR
+run 2/20  PASS  Night 1 to dawn (plug + dawn cues), then NEXT starts Night 2 (no generator on 1–2)
+run 2/20  PASS  fridge spoils (spoiled cue), then RETRY restarts the same night
+run 2/20  PASS  reload resumes the night on the battery; clock waits outside XR
+run 3/20  PASS  Night 1 to dawn (plug + dawn cues), then NEXT starts Night 2 (no generator on 1–2)
+run 3/20  PASS  fridge spoils (spoiled cue), then RETRY restarts the same night
+run 3/20  PASS  reload resumes the night on the battery; clock waits outside XR
+run 4/20  PASS  Night 1 to dawn (plug + dawn cues), then NEXT starts Night 2 (no generator on 1–2)
+run 4/20  PASS  fridge spoils (spoiled cue), then RETRY restarts the same night
+run 4/20  PASS  reload resumes the night on the battery; clock waits outside XR
+run 5/20  PASS  Night 1 to dawn (plug + dawn cues), then NEXT starts Night 2 (no generator on 1–2)
+run 5/20  PASS  fridge spoils (spoiled cue), then RETRY restarts the same night
+run 5/20  PASS  reload resumes the night on the battery; clock waits outside XR
+run 6/20  PASS  Night 1 to dawn (plug + dawn cues), then NEXT starts Night 2 (no generator on 1–2)
+run 6/20  PASS  fridge spoils (spoiled cue), then RETRY restarts the same night
+run 6/20  PASS  reload resumes the night on the battery; clock waits outside XR
+run 7/20  PASS  Night 1 to dawn (plug + dawn cues), then NEXT starts Night 2 (no generator on 1–2)
+run 7/20  PASS  fridge spoils (spoiled cue), then RETRY restarts the same night
+run 7/20  PASS  reload resumes the night on the battery; clock waits outside XR
+run 8/20  PASS  Night 1 to dawn (plug + dawn cues), then NEXT starts Night 2 (no generator on 1–2)
+run 8/20  PASS  fridge spoils (spoiled cue), then RETRY restarts the same night
+run 8/20  PASS  reload resumes the night on the battery; clock waits outside XR
+run 9/20  PASS  Night 1 to dawn (plug + dawn cues), then NEXT starts Night 2 (no generator on 1–2)
+run 9/20  PASS  fridge spoils (spoiled cue), then RETRY restarts the same night
+run 9/20  PASS  reload resumes the night on the battery; clock waits outside XR
+run 10/20  PASS  Night 1 to dawn (plug + dawn cues), then NEXT starts Night 2 (no generator on 1–2)
+run 10/20  PASS  fridge spoils (spoiled cue), then RETRY restarts the same night
+run 10/20  PASS  reload resumes the night on the battery; clock waits outside XR
+run 11/20  PASS  Night 1 to dawn (plug + dawn cues), then NEXT starts Night 2 (no generator on 1–2)
+run 11/20  PASS  fridge spoils (spoiled cue), then RETRY restarts the same night
+run 11/20  PASS  reload resumes the night on the battery; clock waits outside XR
+run 12/20  PASS  Night 1 to dawn (plug + dawn cues), then NEXT starts Night 2 (no generator on 1–2)
+run 12/20  PASS  fridge spoils (spoiled cue), then RETRY restarts the same night
+run 12/20  PASS  reload resumes the night on the battery; clock waits outside XR
+run 13/20  PASS  Night 1 to dawn (plug + dawn cues), then NEXT starts Night 2 (no generator on 1–2)
+run 13/20  PASS  fridge spoils (spoiled cue), then RETRY restarts the same night
+run 13/20  PASS  reload resumes the night on the battery; clock waits outside XR
+run 14/20  PASS  Night 1 to dawn (plug + dawn cues), then NEXT starts Night 2 (no generator on 1–2)
+run 14/20  PASS  fridge spoils (spoiled cue), then RETRY restarts the same night
+run 14/20  PASS  reload resumes the night on the battery; clock waits outside XR
+run 15/20  PASS  Night 1 to dawn (plug + dawn cues), then NEXT starts Night 2 (no generator on 1–2)
+run 15/20  PASS  fridge spoils (spoiled cue), then RETRY restarts the same night
+run 15/20  PASS  reload resumes the night on the battery; clock waits outside XR
+run 16/20  PASS  Night 1 to dawn (plug + dawn cues), then NEXT starts Night 2 (no generator on 1–2)
+run 16/20  PASS  fridge spoils (spoiled cue), then RETRY restarts the same night
+run 16/20  PASS  reload resumes the night on the battery; clock waits outside XR
+run 17/20  PASS  Night 1 to dawn (plug + dawn cues), then NEXT starts Night 2 (no generator on 1–2)
+run 17/20  PASS  fridge spoils (spoiled cue), then RETRY restarts the same night
+run 17/20  PASS  reload resumes the night on the battery; clock waits outside XR
+run 18/20  PASS  Night 1 to dawn (plug + dawn cues), then NEXT starts Night 2 (no generator on 1–2)
+run 18/20  PASS  fridge spoils (spoiled cue), then RETRY restarts the same night
+run 18/20  PASS  reload resumes the night on the battery; clock waits outside XR
+run 19/20  PASS  Night 1 to dawn (plug + dawn cues), then NEXT starts Night 2 (no generator on 1–2)
+run 19/20  PASS  fridge spoils (spoiled cue), then RETRY restarts the same night
+run 19/20  PASS  reload resumes the night on the battery; clock waits outside XR
+run 20/20  PASS  Night 1 to dawn (plug + dawn cues), then NEXT starts Night 2 (no generator on 1–2)
+run 20/20  PASS  fridge spoils (spoiled cue), then RETRY restarts the same night
+run 20/20  PASS  reload resumes the night on the battery; clock waits outside XR
+
+SUMMARY
+  20/20  Night 1 to dawn (plug + dawn cues), then NEXT starts Night 2 (no generator on 1–2)
+  20/20  fridge spoils (spoiled cue), then RETRY restarts the same night
+  20/20  reload resumes the night on the battery; clock waits outside XR
+EXIT 0

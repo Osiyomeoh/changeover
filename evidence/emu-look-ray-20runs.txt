@@ -1,0 +1,68 @@
+# scripts/emu-look.py --ray --runs 20 · emulated Meta Quest 3 (IWER 2.5.0 bundled in @iwsdk/vite-plugin-dev 1.0.1, hands, no eye tracking), headless · 2026-11-15 01:56 WAT · page ?daily&fresh
+# Replaces the Nov 4 file of this name, which was not a run: the script exited at once because that device had gaze. After the pointer-capture fix in src/play-system.ts makeLook(); before it: evidence/emu-look-ray-20runs-before-fix.txt (plug then unplug 0/20); cause: evidence/emu-look-ray-mutant.txt.
+run 1/20  PASS  hand ray: each of 8 tokens and the cord hovers only itself
+run 1/20  PASS  hand ray + pinch plugs then unplugs the fridge (source ray)
+run 1/20  PASS  hand ray: a release off target, then 3 pinches in a row, all 4 count
+run 2/20  PASS  hand ray: each of 8 tokens and the cord hovers only itself
+run 2/20  PASS  hand ray + pinch plugs then unplugs the fridge (source ray)
+run 2/20  PASS  hand ray: a release off target, then 3 pinches in a row, all 4 count
+run 3/20  PASS  hand ray: each of 8 tokens and the cord hovers only itself
+run 3/20  PASS  hand ray + pinch plugs then unplugs the fridge (source ray)
+run 3/20  PASS  hand ray: a release off target, then 3 pinches in a row, all 4 count
+run 4/20  PASS  hand ray: each of 8 tokens and the cord hovers only itself
+run 4/20  PASS  hand ray + pinch plugs then unplugs the fridge (source ray)
+run 4/20  PASS  hand ray: a release off target, then 3 pinches in a row, all 4 count
+run 5/20  PASS  hand ray: each of 8 tokens and the cord hovers only itself
+run 5/20  PASS  hand ray + pinch plugs then unplugs the fridge (source ray)
+run 5/20  PASS  hand ray: a release off target, then 3 pinches in a row, all 4 count
+run 6/20  PASS  hand ray: each of 8 tokens and the cord hovers only itself
+run 6/20  PASS  hand ray + pinch plugs then unplugs the fridge (source ray)
+run 6/20  PASS  hand ray: a release off target, then 3 pinches in a row, all 4 count
+run 7/20  PASS  hand ray: each of 8 tokens and the cord hovers only itself
+run 7/20  PASS  hand ray + pinch plugs then unplugs the fridge (source ray)
+run 7/20  PASS  hand ray: a release off target, then 3 pinches in a row, all 4 count
+run 8/20  PASS  hand ray: each of 8 tokens and the cord hovers only itself
+run 8/20  PASS  hand ray + pinch plugs then unplugs the fridge (source ray)
+run 8/20  PASS  hand ray: a release off target, then 3 pinches in a row, all 4 count
+run 9/20  PASS  hand ray: each of 8 tokens and the cord hovers only itself
+run 9/20  PASS  hand ray + pinch plugs then unplugs the fridge (source ray)
+run 9/20  PASS  hand ray: a release off target, then 3 pinches in a row, all 4 count
+run 10/20  PASS  hand ray: each of 8 tokens and the cord hovers only itself
+run 10/20  PASS  hand ray + pinch plugs then unplugs the fridge (source ray)
+run 10/20  PASS  hand ray: a release off target, then 3 pinches in a row, all 4 count
+run 11/20  PASS  hand ray: each of 8 tokens and the cord hovers only itself
+run 11/20  PASS  hand ray + pinch plugs then unplugs the fridge (source ray)
+run 11/20  PASS  hand ray: a release off target, then 3 pinches in a row, all 4 count
+run 12/20  PASS  hand ray: each of 8 tokens and the cord hovers only itself
+run 12/20  PASS  hand ray + pinch plugs then unplugs the fridge (source ray)
+run 12/20  PASS  hand ray: a release off target, then 3 pinches in a row, all 4 count
+run 13/20  PASS  hand ray: each of 8 tokens and the cord hovers only itself
+run 13/20  PASS  hand ray + pinch plugs then unplugs the fridge (source ray)
+run 13/20  PASS  hand ray: a release off target, then 3 pinches in a row, all 4 count
+run 14/20  PASS  hand ray: each of 8 tokens and the cord hovers only itself
+run 14/20  PASS  hand ray + pinch plugs then unplugs the fridge (source ray)
+run 14/20  PASS  hand ray: a release off target, then 3 pinches in a row, all 4 count
+run 15/20  PASS  hand ray: each of 8 tokens and the cord hovers only itself
+run 15/20  PASS  hand ray + pinch plugs then unplugs the fridge (source ray)
+run 15/20  PASS  hand ray: a release off target, then 3 pinches in a row, all 4 count
+run 16/20  PASS  hand ray: each of 8 tokens and the cord hovers only itself
+run 16/20  PASS  hand ray + pinch plugs then unplugs the fridge (source ray)
+run 16/20  PASS  hand ray: a release off target, then 3 pinches in a row, all 4 count
+run 17/20  PASS  hand ray: each of 8 tokens and the cord hovers only itself
+run 17/20  PASS  hand ray + pinch plugs then unplugs the fridge (source ray)
+run 17/20  PASS  hand ray: a release off target, then 3 pinches in a row, all 4 count
+run 18/20  PASS  hand ray: each of 8 tokens and the cord hovers only itself
+run 18/20  PASS  hand ray + pinch plugs then unplugs the fridge (source ray)
+run 18/20  PASS  hand ray: a release off target, then 3 pinches in a row, all 4 count
+run 19/20  PASS  hand ray: each of 8 tokens and the cord hovers only itself
+run 19/20  PASS  hand ray + pinch plugs then unplugs the fridge (source ray)
+run 19/20  PASS  hand ray: a release off target, then 3 pinches in a row, all 4 count
+run 20/20  PASS  hand ray: each of 8 tokens and the cord hovers only itself
+run 20/20  PASS  hand ray + pinch plugs then unplugs the fridge (source ray)
+run 20/20  PASS  hand ray: a release off target, then 3 pinches in a row, all 4 count
+
+SUMMARY
+  20/20  hand ray: each of 8 tokens and the cord hovers only itself
+  20/20  hand ray + pinch plugs then unplugs the fridge (source ray)
+  20/20  hand ray: a release off target, then 3 pinches in a row, all 4 count
+# exit 0

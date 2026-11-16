@@ -1,0 +1,28 @@
+# Mutation check for the hand-ray fix · scripts/emu-look.py --ray --runs 1 · emulated Meta Quest 3 (IWER 2.5.0 bundled in @iwsdk/vite-plugin-dev 1.0.1, hands, no eye tracking), headless · 2026-11-15 WAT
+#
+# The bug: after a hand-ray look-select, the next ray pinch from that hand was lost (0/20, evidence/emu-look-ray-20runs-before-fix.txt).
+# Cause: every look-select moves its target (the appliance goes to a circuit or home), so at release the ray points at nothing.
+#   IWSDK 1.0.1 MultiPointer.processButtonLifecycle (node_modules/@iwsdk/xr-input/dist/pointer/multi-pointer.js) returns early
+#   when the pointer has no intersection, so the release is never sent and the ray stays in SELECT. The next pinch's press is
+#   then ignored (state is not HOVER) and its release is what finally clears the stuck select.
+# Fix: src/play-system.ts makeLook(): on pointerdown from a hand ray, setPointerCapture on the look target, so the pointer's
+#   intersection stays on that target until release and the release is delivered. Gaze selects are unchanged.
+# Mutant: that setPointerCapture line replaced with `void m; // MUTANT: no pointer capture`. Run once, then the fixed file was
+#   copied back and compared byte for byte (cmp: identical).
+# Expected: hover still passes; both scenarios with a second ray pinch fail.
+
+run 1/1  PASS  hand ray: each of 8 tokens and the cord hovers only itself
+run 1/1  FAIL  hand ray + pinch plugs then unplugs the fridge (source ray)
+run 1/1  FAIL  hand ray: a release off target, then 3 pinches in a row, all 4 count
+
+SUMMARY
+  1/1  hand ray: each of 8 tokens and the cord hovers only itself
+  0/1  hand ray + pinch plugs then unplugs the fridge (source ray)
+  0/1  hand ray: a release off target, then 3 pinches in a row, all 4 count
+
+FAIL run 1: hand ray + pinch plugs then unplugs the fridge (source ray)
+
+FAIL run 1: hand ray: a release off target, then 3 pinches in a row, all 4 count
+exit 1
+
+# Result: as expected. The fixed file passed 3/3 on the run just before this one.

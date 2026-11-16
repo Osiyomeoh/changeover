@@ -1,0 +1,84 @@
+# emu-play.py --runs 20 · emulated Meta VR Glasses (IWER bundled in @iwsdk/vite-plugin-dev 1.0.1, hands) · 2026-11-04 12:41 WAT
+run 1/20  PASS  initial state: not started, nothing on
+run 1/20  PASS  pinch fridge onto circuit 1 starts the night
+run 1/20  PASS  iron overloads the inverter and trips
+run 1/20  PASS  generator refused without changeover (backfeed)
+run 1/20  PASS  generator runs after isolate + throw
+run 1/20  PASS  tracking lost while holding a token returns it
+run 1/20  PASS  each of 8 tokens grabs itself, both hands
+run 1/20  PASS  tracking lost mid-pinch on the cord: one pull, cord not held
+run 2/20  PASS  initial state: not started, nothing on
+run 2/20  PASS  pinch fridge onto circuit 1 starts the night
+run 2/20  PASS  iron overloads the inverter and trips
+run 2/20  PASS  generator refused without changeover (backfeed)
+run 2/20  PASS  generator runs after isolate + throw
+run 2/20  PASS  tracking lost while holding a token returns it
+run 2/20  PASS  each of 8 tokens grabs itself, both hands
+run 2/20  PASS  tracking lost mid-pinch on the cord: one pull, cord not held
+run 3/20  PASS  initial state: not started, nothing on
+run 3/20  PASS  pinch fridge onto circuit 1 starts the night
+run 3/20  PASS  iron overloads the inverter and trips
+run 3/20  PASS  generator refused without changeover (backfeed)
+run 3/20  PASS  generator runs after isolate + throw
+run 3/20  PASS  tracking lost while holding a token returns it
+run 3/20  PASS  each of 8 tokens grabs itself, both hands
+run 3/20  PASS  tracking lost mid-pinch on the cord: one pull, cord not held
+run 4/20  PASS  initial state: not started, nothing on
+run 4/20  PASS  pinch fridge onto circuit 1 starts the night
+run 4/20  PASS  iron overloads the inverter and trips
+run 4/20  PASS  generator refused without changeover (backfeed)
+run 4/20  PASS  generator runs after isolate + throw
+run 4/20  PASS  tracking lost while holding a token returns it
+run 4/20  FAIL  each of 8 tokens grabs itself, both hands
+run 4/20  FAIL  tracking lost mid-pinch on the cord: one pull, cord not held
+run 5/20  FAIL  initial state: not started, nothing on
+run 5/20  PASS  pinch fridge onto circuit 1 starts the night
+run 5/20  PASS  iron overloads the inverter and trips
+run 5/20  FAIL  generator refused without changeover (backfeed)
+run 5/20  FAIL  generator runs after isolate + throw
+run 5/20  FAIL  tracking lost while holding a token returns it
+run 5/20  FAIL  each of 8 tokens grabs itself, both hands
+Traceback (most recent call last):
+  File "/Users/MAC/Documents/meta/changeover/scripts/emu_lib.py", line 17, in cli
+    d = json.loads(out.stdout)
+  File "/opt/homebrew/Cellar/python@3.15/3.15.0/Frameworks/Python.framework/Versions/3.15/lib/python3.15/json/__init__.py", line 371, in loads
+    return _default_decoder.decode(s)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^
+  File "/opt/homebrew/Cellar/python@3.15/3.15.0/Frameworks/Python.framework/Versions/3.15/lib/python3.15/json/decoder.py", line 358, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.15/3.15.0/Frameworks/Python.framework/Versions/3.15/lib/python3.15/json/decoder.py", line 376, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/MAC/Documents/meta/changeover/scripts/emu-play.py", line 204, in <module>
+    main()
+    ~~~~^^
+  File "/Users/MAC/Documents/meta/changeover/scripts/emu-play.py", line 186, in main
+    fresh_session("PlayStatus")
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "/Users/MAC/Documents/meta/changeover/scripts/emu_lib.py", line 102, in fresh_session
+    enter_xr()
+    ~~~~~~~~^^
+  File "/Users/MAC/Documents/meta/changeover/scripts/emu_lib.py", line 91, in enter_xr
+    cli("xr", "set-transform", {"device": "headset", "position": {"x": 0, "y": 1.25, "z": 0},
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                                "orientation": {"pitch": -15, "yaw": 0, "roll": 0}})
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/MAC/Documents/meta/changeover/scripts/emu_lib.py", line 19, in cli
+    raise RuntimeError(f"{domain} {action}: non-JSON output: {out.stdout[:300]} {out.stderr[:300]}")
+RuntimeError: xr set-transform: non-JSON output:  {
+  "ok": false,
+  "error": {
+    "code": "runtime_command_failed",
+    "message": "Target did not reply before the deadline. Inspect state before retrying.",
+    "details": {
+      "code": "command_timeout",
+      "outcome": "outcome_unknown",
+      "browser": {
+        "lifecycle": {
+          "st
+# exit 1

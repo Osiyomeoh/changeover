@@ -1,0 +1,65 @@
+# scripts/emu-look.py --ray --runs 20 · emulated Meta Quest 3 (IWER 2.5.0 bundled in @iwsdk/vite-plugin-dev 1.0.1, hands, no eye tracking), headless · 2026-11-15 01:31 WAT
+# BEFORE the fix. Kept as the failing baseline: the plug registers, the unplug pinch right after it is lost (lookSelects stays 1). Cause and fix: see evidence/emu-look-ray-mutant.txt. The passing run after the fix is evidence/emu-look-ray-20runs.txt.
+run 1/20  PASS  hand ray: each of 8 tokens and the cord hovers only itself
+run 1/20  FAIL  hand ray + pinch plugs then unplugs the fridge (source ray)
+run 2/20  PASS  hand ray: each of 8 tokens and the cord hovers only itself
+run 2/20  FAIL  hand ray + pinch plugs then unplugs the fridge (source ray)
+run 3/20  PASS  hand ray: each of 8 tokens and the cord hovers only itself
+run 3/20  FAIL  hand ray + pinch plugs then unplugs the fridge (source ray)
+run 4/20  PASS  hand ray: each of 8 tokens and the cord hovers only itself
+run 4/20  FAIL  hand ray + pinch plugs then unplugs the fridge (source ray)
+run 5/20  PASS  hand ray: each of 8 tokens and the cord hovers only itself
+run 5/20  FAIL  hand ray + pinch plugs then unplugs the fridge (source ray)
+run 6/20  PASS  hand ray: each of 8 tokens and the cord hovers only itself
+run 6/20  FAIL  hand ray + pinch plugs then unplugs the fridge (source ray)
+run 7/20  PASS  hand ray: each of 8 tokens and the cord hovers only itself
+run 7/20  FAIL  hand ray + pinch plugs then unplugs the fridge (source ray)
+run 8/20  PASS  hand ray: each of 8 tokens and the cord hovers only itself
+run 8/20  FAIL  hand ray + pinch plugs then unplugs the fridge (source ray)
+run 9/20  PASS  hand ray: each of 8 tokens and the cord hovers only itself
+run 9/20  FAIL  hand ray + pinch plugs then unplugs the fridge (source ray)
+run 10/20  PASS  hand ray: each of 8 tokens and the cord hovers only itself
+run 10/20  FAIL  hand ray + pinch plugs then unplugs the fridge (source ray)
+run 11/20  PASS  hand ray: each of 8 tokens and the cord hovers only itself
+run 11/20  FAIL  hand ray + pinch plugs then unplugs the fridge (source ray)
+run 12/20  PASS  hand ray: each of 8 tokens and the cord hovers only itself
+run 12/20  FAIL  hand ray + pinch plugs then unplugs the fridge (source ray)
+run 13/20  PASS  hand ray: each of 8 tokens and the cord hovers only itself
+run 13/20  FAIL  hand ray + pinch plugs then unplugs the fridge (source ray)
+run 14/20  PASS  hand ray: each of 8 tokens and the cord hovers only itself
+run 14/20  FAIL  hand ray + pinch plugs then unplugs the fridge (source ray)
+run 15/20  PASS  hand ray: each of 8 tokens and the cord hovers only itself
+run 15/20  FAIL  hand ray + pinch plugs then unplugs the fridge (source ray)
+run 16/20  PASS  hand ray: each of 8 tokens and the cord hovers only itself
+run 16/20  FAIL  hand ray + pinch plugs then unplugs the fridge (source ray)
+run 17/20  PASS  hand ray: each of 8 tokens and the cord hovers only itself
+run 17/20  FAIL  hand ray + pinch plugs then unplugs the fridge (source ray)
+run 18/20  PASS  hand ray: each of 8 tokens and the cord hovers only itself
+run 18/20  FAIL  hand ray + pinch plugs then unplugs the fridge (source ray)
+run 19/20  PASS  hand ray: each of 8 tokens and the cord hovers only itself
+run 19/20  FAIL  hand ray + pinch plugs then unplugs the fridge (source ray)
+run 20/20  PASS  hand ray: each of 8 tokens and the cord hovers only itself
+run 20/20  FAIL  hand ray + pinch plugs then unplugs the fridge (source ray)
+
+SUMMARY
+  20/20  hand ray: each of 8 tokens and the cord hovers only itself
+  0/20  hand ray + pinch plugs then unplugs the fridge (source ray)
+
+FAIL run 1: hand ray + pinch plugs then unplugs the fridge (source ray)
+  {"after_plug": {"started": true, "clock": "21:03", "elapsedH": 0.05056333169341087, "remainingWh": 3826.4228515625, "loadW": 241.6666717529297, "source": "battery", "fuelH": 2, "on": "fridge", "trips": 0, "backfeedRefusals": 0, "outcome": "playing", "stars": 0, "streak": 0, "streakBest": 0, "lookSelects": 1, "lastLookSource": "ray", "caption": "Fridge on. The clock runs until 6 am. Every watt costs battery.", "mode": "daily", "night": 0, "resumed": false, "progress": "0,0,0,0,0", "hasGenerator": true, "nextLabel": "", "audio": "running", "cues": 1, "recentCues": "plug", "regainedIgnored": 0}, "after_unplug": {"started": true, "clock": "21:08", "elapsedH": 0.13890333473682404, "remainingWh": 3802.701904296875, "loadW": 241.6666717529297, "source": "battery", "fuelH": 2, "on": "fridge", "trips": 0, "backfeedRefusals": 0, "outcome": "playing", "stars": 0, "streak": 0, "streakBest": 0, "look
+
+FAIL run 2: hand ray + pinch plugs then unplugs the fridge (source ray)
+  {"after_plug": {"started": true, "clock": "21:03", "elapsedH": 0.05113000050187111, "remainingWh": 3826.270751953125, "loadW": 241.6666717529297, "source": "battery", "fuelH": 2, "on": "fridge", "trips": 0, "backfeedRefusals": 0, "outcome": "playing", "stars": 0, "streak": 0, "streakBest": 0, "lookSelects": 1, "lastLookSource": "ray", "caption": "Fridge on. The clock runs until 6 am. Every watt costs battery.", "mode": "daily", "night": 0, "resumed": false, "progress": "0,0,0,0,0", "hasGenerator": true, "nextLabel": "", "audio": "running", "cues": 1, "recentCues": "plug", "regainedIgnored": 0}, "after_unplug": {"started": true, "clock": "21:08", "elapsedH": 0.1355433315038681, "remainingWh": 3803.60400390625, "loadW": 241.6666717529297, "source": "battery", "fuelH": 2, "on": "fridge", "trips": 0, "backfeedRefusals": 0, "outcome": "playing", "stars": 0, "streak": 0, "streakBest": 0, "look
+
+FAIL run 3: hand ray + pinch plugs then unplugs the fridge (source ray)
+  {"after_plug": {"started": true, "clock": "21:03", "elapsedH": 0.0510866679251194, "remainingWh": 3826.2822265625, "loadW": 241.6666717529297, "source": "battery", "fuelH": 2, "on": "fridge", "trips": 0, "backfeedRefusals": 0, "outcome": "playing", "stars": 0, "streak": 0, "streakBest": 0, "lookSelects": 1, "lastLookSource": "ray", "caption": "Fridge on. The clock runs until 6 am. Every watt costs battery.", "mode": "daily", "night": 0, "resumed": false, "progress": "0,0,0,0,0", "hasGenerator": true, "nextLabel": "", "audio": "running", "cues": 1, "recentCues": "plug", "regainedIgnored": 0}, "after_unplug": {"started": true, "clock": "21:08", "elapsedH": 0.1449899971485138, "remainingWh": 3801.0673828125, "loadW": 241.6666717529297, "source": "battery", "fuelH": 2, "on": "fridge", "trips": 0, "backfeedRefusals": 0, "outcome": "playing", "stars": 0, "streak": 0, "streakBest": 0, "lookSele
+
+FAIL run 4: hand ray + pinch plugs then unplugs the fridge (source ray)
+  {"after_plug": {"started": true, "clock": "21:04", "elapsedH": 0.06778000295162201, "remainingWh": 3821.7998046875, "loadW": 241.6666717529297, "source": "battery", "fuelH": 2, "on": "fridge", "trips": 0, "backfeedRefusals": 0, "outcome": "playing", "stars": 0, "streak": 0, "streakBest": 0, "lookSelects": 1, "lastLookSource": "ray", "caption": "Fridge on. The clock runs until 6 am. Every watt costs battery.", "mode": "daily", "night": 0, "resumed": false, "progress": "0,0,0,0,0", "hasGenerator": true, "nextLabel": "", "audio": "running", "cues": 1, "recentCues": "plug", "regainedIgnored": 0}, "after_unplug": {"started": true, "clock": "21:09", "elapsedH": 0.15443000197410583, "remainingWh": 3798.53271484375, "loadW": 241.6666717529297, "source": "battery", "fuelH": 2, "on": "fridge", "trips": 0, "backfeedRefusals": 0, "outcome": "playing", "stars": 0, "streak": 0, "streakBest": 0, "lookS
+
+FAIL run 5: hand ray + pinch plugs then unplugs the fridge (source ray)
+  {"after_plug": {"started": true, "clock": "21:03", "elapsedH": 0.05057999864220619, "remainingWh": 3826.418212890625, "loadW": 241.6666717529297, "source": "battery", "fuelH": 2, "on": "fridge", "trips": 0, "backfeedRefusals": 0, "outcome": "playing", "stars": 0, "streak": 0, "streakBest": 0, "lookSelects": 1, "lastLookSource": "ray", "caption": "Fridge on. The clock runs until 6 am. Every watt costs battery.", "mode": "daily", "night": 0, "resumed": false, "progress": "0,0,0,0,0", "hasGenerator": true, "nextLabel": "", "audio": "running", "cues": 1, "recentCues": "plug", "regainedIgnored": 0}, "after_unplug": {"started": true, "clock": "21:07", "elapsedH": 0.12666666507720947, "remainingWh": 3805.987548828125, "loadW": 241.6666717529297, "source": "battery", "fuelH": 2, "on": "fridge", "trips": 0, "backfeedRefusals": 0, "outcome": "playing", "stars": 0, "streak": 0, "streakBest": 0, "lo
+
+FAIL run 6: hand ray + pinch plugs then unplugs the fridge (source ray)
+  {"after_plug": {"started": true, "clock": "21:03", "elapsedH": 0.05113000050187111, "remainingWh": 3826.270751953125, "loadW": 241.6666717529297, "source": "battery", "fuelH": 2, "on": "fridge", "trips": 0, "backfeedRefusals": 0, "outcome": "playing", "stars": 0, "streak": 0, "streakBest": 0, "lookSelects": 1, "lastLookSource": "ray", "caption": "Fridge on. The clock runs until 6 am. Every watt costs battery.", "mode": "daily", "night": 0, "resumed": false, "progress": "0,0,0,0,0", "hasGenerator": true, "nextLabel": "", "audio": "running", "cues": 1, "recentCues": "plug", "regainedIgnored": 0}, "after_unplug": {"started": true, "clock": "21:07", "elapsedH": 0.1316666603088379, "remainingWh": 3804.64501953125, "loadW": 241.6666717529297, "source": "battery", "fuelH": 2, "on": "fridge", "trips": 0, "backfeedRefusals": 0, "outcome": "playing", "stars": 0, "streak": 0, "streakBest": 0, "look
+# exit 1

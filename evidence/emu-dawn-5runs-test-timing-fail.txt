@@ -1,0 +1,34 @@
+# scripts/emu-dawn.py --runs 5 · emulated Meta VR Glasses (IWER 2.5.0 bundled in @iwsdk/vite-plugin-dev 1.0.1, hands), headed (collaborate mode) · 2026-11-15 11:31–11:51 WAT · 19/20 · KEPT FOR THE RECORD: the one FAIL is the test's timing, not the game.
+# Run 2, scenario 1: every game value was right (won, room grew monotonically to 1, fridge+fan in the room, NEXT → Night 2), but the test also
+# required its first sample to be <= 0.25 and got 0.419: the CLI status read stalled (measured right after: up to 1.75 s per read, mean 0.37 s).
+# A sampled dawn at 0.2 s intervals showed smooth growth: 0, 0.03, 0.135, 0.24, 0.42, 0.68, 0.93, 1 over ~7.5 s. The test was then changed to require
+# two samples strictly between 0 and 1 (gradual growth) instead of an early first sample; see evidence/emu-dawn-5runs.txt for the re-run.
+run 1/5  PASS  dawn grows the room (steadily, to full size); fridge and fan on at dawn run in it; NEXT then starts Night 2
+run 1/5  PASS  fan off at dawn: the room shows the fridge running, not the fan
+run 1/5  PASS  NEXT pinched while the room is still growing: the room goes, Night 2 starts
+run 1/5  PASS  a lost night grows no room; RETRY restarts it
+run 2/5  FAIL  dawn grows the room (steadily, to full size); fridge and fan on at dawn run in it; NEXT then starts Night 2
+run 2/5  PASS  fan off at dawn: the room shows the fridge running, not the fan
+run 2/5  PASS  NEXT pinched while the room is still growing: the room goes, Night 2 starts
+run 2/5  PASS  a lost night grows no room; RETRY restarts it
+run 3/5  PASS  dawn grows the room (steadily, to full size); fridge and fan on at dawn run in it; NEXT then starts Night 2
+run 3/5  PASS  fan off at dawn: the room shows the fridge running, not the fan
+run 3/5  PASS  NEXT pinched while the room is still growing: the room goes, Night 2 starts
+run 3/5  PASS  a lost night grows no room; RETRY restarts it
+run 4/5  PASS  dawn grows the room (steadily, to full size); fridge and fan on at dawn run in it; NEXT then starts Night 2
+run 4/5  PASS  fan off at dawn: the room shows the fridge running, not the fan
+run 4/5  PASS  NEXT pinched while the room is still growing: the room goes, Night 2 starts
+run 4/5  PASS  a lost night grows no room; RETRY restarts it
+run 5/5  PASS  dawn grows the room (steadily, to full size); fridge and fan on at dawn run in it; NEXT then starts Night 2
+run 5/5  PASS  fan off at dawn: the room shows the fridge running, not the fan
+run 5/5  PASS  NEXT pinched while the room is still growing: the room goes, Night 2 starts
+run 5/5  PASS  a lost night grows no room; RETRY restarts it
+
+SUMMARY
+  4/5  dawn grows the room (steadily, to full size); fridge and fan on at dawn run in it; NEXT then starts Night 2
+  5/5  fan off at dawn: the room shows the fridge running, not the fan
+  5/5  NEXT pinched while the room is still growing: the room goes, Night 2 starts
+  5/5  a lost night grows no room; RETRY restarts it
+
+FAIL run 2: dawn grows the room (steadily, to full size); fridge and fan on at dawn run in it; NEXT then starts Night 2
+  {"samples": [0.419, 0.788, 0.981, 1], "end": {"outcome": "won", "on": "fridge,fan", "caption": "Dawn. Night 1 won. Pinch NEXT NIGHT on the right."}, "final": {"reveal": 1, "revealOn": "fridge,fan", "nextLabel": "Next night"}, "after_next": {"night": 2, "reveal": -1, "revealOn": "", "outcome": "playing"}}
