@@ -46,3 +46,18 @@ pids/
 
 # Screenshot staging for scripts/emu-stills.py and scripts/dist-check.mjs
 .stills-tmp/
+
+# Python bytecode
+__pycache__/
+
+# Local editor/assistant config from the project template, and working notes
+AGENTS.md
+CLAUDE.md
+.claude/
+.agents/
+.codex/
+.cursor/
+.github/instructions/
+/PLAN.md
+/CHECKLIST.md
+/pnpm-workspace.yaml

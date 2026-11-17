@@ -1,0 +1,47 @@
+{
+  "about": "Narration for the video: python3 scripts/film-cut.py .stills-tmp/film --voice scripts/film-voice.json. Each line is spoken `at` seconds into its shot as cut. Numbers are CLAIMS rows 9 (12 collapses) and 11 (2,042 W > 1,500 W); the rest restates the caption panels and the game's own text. Synthetic voice (text-to-speech); the closing card says so.",
+  "voice": "Ayanda",
+  "engine": "generative",
+  "lines": [
+    {"shot": "title", "at": 0.6, "text": "In twenty twenty-four, Nigeria's power grid collapsed twelve times."},
+    {"shot": "title", "at": 5.6, "text": "When the lights die, someone has to decide what stays on."},
+    {"shot": "title", "at": 9.8, "text": "Changeover puts that choice in your hands."},
+
+    {"shot": "night1", "at": 0.3, "text": "Night one. You're seated, hands only."},
+    {"shot": "night1", "at": 3.6, "text": "Pinch the fridge, carry it, and plug it into the inverter."},
+    {"shot": "night1", "at": 9.4, "text": "Then the fan."},
+    {"shot": "night1", "at": 11.0, "text": "The panel adds up every watt, and tells you how long the battery will last."},
+
+    {"shot": "overload", "at": 0.5, "text": "Every watt costs battery, and the inverter has a limit."},
+    {"shot": "overload", "at": 5.0, "text": "Add the clothes iron: two thousand and forty-two watts, on a fifteen-hundred-watt inverter."},
+    {"shot": "overload", "at": 11.3, "text": "Everything trips."},
+    {"shot": "overload", "at": 13.6, "text": "And you're back in the dark."},
+
+    {"shot": "backfeed", "at": 0.5, "text": "Some nights, there's a generator. It's tempting to just pull the cord."},
+    {"shot": "backfeed", "at": 5.2, "text": "But do it before isolating the mains, and the game refuses."},
+    {"shot": "backfeed", "at": 10.0, "text": "That generator would backfeed the street line, and could kill a line worker."},
+
+    {"shot": "eyes", "at": 0.5, "text": "So here's the move built for eyes and hands."},
+    {"shot": "eyes", "at": 7.6, "text": "Left hand out of tracking? Just look at the red isolator, and it lights up."},
+    {"shot": "eyes", "at": 14.2, "text": "Your right hand throws the lever."},
+    {"shot": "eyes", "at": 21.0, "text": "Now pull the cord,"},
+    {"shot": "eyes", "at": 23.6, "text": "and the generator runs."},
+    {"shot": "eyes", "at": 26.6, "text": "Eyes choose. Hands act."},
+
+    {"shot": "lookaway", "at": 0.4, "text": "And it's a dead-man's switch."},
+    {"shot": "lookaway", "at": 2.8, "text": "The lever only holds while your eyes stay on the isolator."},
+    {"shot": "lookaway", "at": 6.7, "text": "Look away, and it springs back."},
+    {"shot": "lookaway", "at": 10.4, "text": "The safety rule becomes the game."},
+
+    {"shot": "dawn", "at": 0.3, "text": "Keep the fridge cold through the night, till six in the morning,"},
+    {"shot": "dawn", "at": 7.6, "text": "and the flat opens into the room around you."},
+    {"shot": "dawn", "at": 12.0, "text": "The fan turns over a sleeping child."},
+    {"shot": "dawn", "at": 15.6, "text": "That's who you kept the power on for."},
+    {"shot": "dawn", "at": 24.0, "text": "Every night is a new puzzle of watts, hours, and safety."},
+
+    {"shot": "daily", "at": 0.4, "text": "And every day, there's a new outage:"},
+    {"shot": "daily", "at": 2.9, "text": "the same night for everyone, on the same date."},
+    {"shot": "daily", "at": 11.2, "text": "Win it to start a streak. Come back tomorrow to keep it alive."},
+    {"shot": "daily", "at": 17.0, "text": "Changeover. Keep the power on till dawn."}
+  ]
+}

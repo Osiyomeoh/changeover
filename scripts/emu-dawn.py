@@ -13,7 +13,7 @@ import subprocess
 import sys
 import time
 
-from emu_lib import CLI, cli, enter_xr, find_one, hand, move, navigate, settle, values, wait_for, PARK
+from emu_lib import CLI, enter_xr, find_one, hand, move, navigate, settle, values, wait_for, PARK
 
 TOP_Y = 0.72
 TOKENS = ["fridge", "fan", "tv", "laptop", "pump", "microwave", "kettle", "iron"]

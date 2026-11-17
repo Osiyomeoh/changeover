@@ -20,6 +20,7 @@ Changeover puts that night on a table in front of you and makes every decision a
 | | |
 |---|---|
 | **Link** | [osiyomeoh.github.io/changeover](https://osiyomeoh.github.io/changeover/) |
+| **Video** | [2:50 on YouTube](https://youtu.be/jMDP6T7nyK8): recorded in IWSDK's emulator with scripted hands and eyes; the narration is a synthetic voice ([how it was made](evidence/emu-film-capture.txt)) |
 | **Headset** | Open the link in the headset's browser → **Enter VR** → put the controllers down. Everything is done with your hands. |
 | **Straight to the generator** | add `?daily` to the link: the Daily Outage always has the generator and the changeover. (`?night=3` opens Night 3 only once Nights 1–2 are won; until then it opens the next night not yet won.) |
 | **Today's Daily Outage** | add `?daily` (the same night for every player that day; `?tier=easy\|standard\|hard`) |

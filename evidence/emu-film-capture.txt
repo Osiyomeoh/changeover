@@ -36,3 +36,112 @@ Game view cropped from the page (936x870 at 132,332), scaled to 1080 high, besid
 total 2:52.1
 
 Output: 1920x1080, 30 fps, H.264, no audio, no music.
+
+
+## With the game's sound (Nov 16, second capture)
+The first cut was picture only (the DevTools screencast carries no sound). All 8 shots were recorded again with
+the game's own sound: `python3 scripts/emu-film.py --capture .stills-tmp/film` now opens each shot's page with
+CO_AUDIO_TAP=1, and scripts/film-audio-tap.mjs copies the page's audio mix through an AudioWorklet (gain 0
+output, so the game sounds the same) with the context frame of every 4096-frame block; getOutputTimestamp()
+puts those blocks on the epoch clock the screencast frames carry. film-capture.mjs writes audio.wav per shot.
+Nothing is added: no music, no voice, no effects. The game makes every sound with Web Audio (src/sfx.ts).
+
+1  title     TAKE OK   2026-11-16 07:53:18 WAT  shot  12.5 s  capture 475 frames, 35.1 fps; sound 44100 Hz, silent
+2  night1    TAKE OK   2026-11-16 07:53:41 WAT  shot  17.2 s  capture 639 frames, 35.1 fps; sound 44100 Hz, peak -17 dB
+3  overload  TAKE OK   2026-11-16 07:54:07 WAT  shot  16.7 s  capture 629 frames, 35.3 fps; sound 44100 Hz, peak -14.2 dB
+4  backfeed  TAKE OK   2026-11-16 07:54:33 WAT  shot  16.8 s  capture 588 frames, 33.2 fps; sound 44100 Hz, peak -18.6 dB
+5  eyes      TAKE OK   2026-11-16 07:55:00 WAT  shot  29.6 s  capture 1067 frames, 34.8 fps; sound 44100 Hz, peak -15.6 dB
+6  lookaway  TAKE OK   2026-11-16 07:55:39 WAT  shot  13.7 s  capture 518 frames, 35.2 fps; sound 44100 Hz, silent
+7  dawn      TAKE OK   2026-11-16 07:56:02 WAT  shot  77.1 s  capture 2796 frames, 35.8 fps; sound 44100 Hz, peak -16.7 dB  night 42.9 s at ?speed=600
+8  daily     TAKE OK   2026-11-16 07:57:29 WAT  shot  82.6 s  capture 2993 frames, 35.8 fps; sound 44100 Hz, peak -16.7 dB  night 65.3 s at ?speed=600
+
+Two shots are silent in the game itself: the title (the flat is dark and nothing is on) and the look-away
+(the lever springing back has no sound cue). The capture counted 1-2 missing 4096-frame blocks per shot, all
+outside the kept spans: a scan of each shot's kept sound found no run of digital silence inside the hum.
+
+Sync check (scripts/film-sync-test.mjs, scripts/film-sync-check.py): the app was flashed white and a 3 kHz beep started on the same
+animation frame, 3 times, while film-capture.mjs recorded. Beep onset minus flash frame: +1, +9, -1 ms;
+run again from scripts/: -3, +10, -5 ms (frames are ~28 ms apart).
+
+Cut: each shot's sound is cut on the same lines as its frames; the fast night's sound is sped up with it
+(ffmpeg atempo, pitch kept); each shot's sound is cut to its encoded video's whole-frame length, so the
+two never drift. One gain for the whole film brings its peak to -1 dB; no compression or limiting.
+
+0:00.0–0:12.8  title      12.8 s  461 frames
+0:12.8–0:30.3  night1     17.5 s  624 frames
+0:30.3–0:47.4  overload   17.1 s  614 frames
+0:47.4–1:04.5  backfeed   17.0 s  577 frames
+1:04.5–1:34.4  eyes       30.0 s  1052 frames
+1:34.4–1:48.5  lookaway   14.1 s  506 frames
+1:48.5–2:20.8  dawn       32.3 s  2494 frames  (night 5.0 s shown, 8.4× speed)
+2:20.8–2:44.1  daily      23.3 s  2978 frames  (night 5.0 s shown, 12.9× speed)
+2:44.1–2:50.1  closing     6.0 s
+total 2:50.1
+sound: the game's own; one gain +13.2 dB brings the peak to -1.0 dB
+
+Output: 1920x1080, 30 fps, H.264; sound AAC 48 kHz stereo (the game's mono mix), 192 kb/s; integrated
+loudness -21.2 LUFS (ffmpeg ebur128). Video and sound streams both 170.07 s. Copy: ../changeover-video.mp4.
+
+
+## Narration (Nov 16)
+A narrated version, in a synthetic voice: `python3 scripts/film-cut.py .stills-tmp/film --voice
+scripts/film-voice.json` makes the same cut (same frames and game sound) with 33 narrated lines on top:
+Amazon Polly, voice Ayanda (South African English; Polly has no Nigerian English voice), generative engine,
+called through the aws CLI. Each line is placed `at` seconds into its shot, timed to what is on screen
+(sound onsets in each shot's cut sound and 1 fps contact sheets: the trip at 10.9 s into overload, the
+refusal at 8.8 s into backfeed, the isolator lighting about 12 s into eyes, the generator at 23.5 s, the
+lever springing back about 7 s into look-away). A fit check before the cut found three overlaps and moved
+eight lines; none overlap or run past their shot now. The words restate the caption panels and the game's own
+text; the numbers are CLAIMS rows 9 and 11.
+Mix: the voice alone is brought to -16 LUFS with a limiter at -2 dB on the voice only; the game's sound
+keeps its one gain (+13.2 dB) and dips 9 dB under each line (0.25 s ramps); one overall gain keeps the peak
+at -1 dB. The closing card adds "The narration is a synthetic voice."
+
+0:00.0–0:12.8  title      12.8 s  461 frames
+0:12.8–0:30.3  night1     17.5 s  624 frames
+0:30.3–0:47.4  overload   17.1 s  614 frames
+0:47.4–1:04.5  backfeed   17.0 s  577 frames
+1:04.5–1:34.4  eyes       30.0 s  1052 frames
+1:34.4–1:48.5  lookaway   14.1 s  506 frames
+1:48.5–2:20.8  dawn       32.3 s  2494 frames  (night 5.0 s shown, 8.4× speed)
+2:20.8–2:44.1  daily      23.3 s  2978 frames  (night 5.0 s shown, 12.9× speed)
+2:44.1–2:50.1  closing     6.0 s
+total 2:50.1
+sound: the game's own, with a synthetic narration on top
+0:00.6–0:05.2  title     In twenty twenty-four, Nigeria's power grid collapsed twelve times.
+0:05.6–0:09.1  title     When the lights die, someone has to decide what stays on.
+0:09.8–0:12.3  title     Changeover puts that choice in your hands.
+0:13.1–0:16.2  night1    Night one. You're seated, hands only.
+0:16.4–0:20.0  night1    Pinch the fridge, carry it, and plug it into the inverter.
+0:22.2–0:23.1  night1    Then the fan.
+0:23.8–0:28.3  night1    The panel adds up every watt, and tells you how long the battery will last.
+0:30.8–0:34.3  overload  Every watt costs battery, and the inverter has a limit.
+0:35.3–0:40.9  overload  Add the clothes iron: two thousand and forty-two watts, on a fifteen-hundred-watt inverter.
+0:41.6–0:42.7  overload  Everything trips.
+0:43.9–0:45.3  overload  And you're back in the dark.
+0:47.9–0:52.4  backfeed  Some nights, there's a generator. It's tempting to just pull the cord.
+0:52.6–0:56.4  backfeed  But do it before isolating the mains, and the game refuses.
+0:57.4–1:01.6  backfeed  That generator would backfeed the street line, and could kill a line worker.
+1:04.9–1:07.8  eyes      So here's the move built for eyes and hands.
+1:12.0–1:17.1  eyes      Left hand out of tracking? Just look at the red isolator, and it lights up.
+1:18.6–1:20.5  eyes      Your right hand throws the lever.
+1:25.4–1:26.6  eyes      Now pull the cord,
+1:28.0–1:29.6  eyes      and the generator runs.
+1:31.0–1:33.4  eyes      Eyes choose. Hands act.
+1:34.8–1:36.5  lookaway  And it's a dead-man's switch.
+1:37.2–1:40.9  lookaway  The lever only holds while your eyes stay on the isolator.
+1:41.1–1:43.0  lookaway  Look away, and it springs back.
+1:44.8–1:46.9  lookaway  The safety rule becomes the game.
+1:48.8–1:52.1  dawn      Keep the fridge cold through the night, till six in the morning,
+1:56.1–1:58.5  dawn      and the flat opens into the room around you.
+2:00.5–2:03.0  dawn      The fan turns over a sleeping child.
+2:04.1–2:06.2  dawn      That's who you kept the power on for.
+2:12.5–2:16.6  dawn      Every night is a new puzzle of watts, hours, and safety.
+2:21.1–2:23.4  daily     And every day, there's a new outage:
+2:23.6–2:26.4  daily     the same night for everyone, on the same date.
+2:31.9–2:36.2  daily     Win it to start a streak. Come back tomorrow to keep it alive.
+2:37.7–2:40.7  daily     Changeover. Keep the power on till dawn.
+voice: Ayanda (generative), synthetic; 33 lines, -16.1 LUFS alone (limited at -2 dB); game sound +13.2 dB, -9 dB under the voice; overall -0.2 dB; -17.4 LUFS
+
+Output: .stills-tmp/film/changeover-voice.mp4, copied to ../changeover-video.mp4 (the cut to upload).
+1920x1080, 30 fps, video and sound both 170.07 s. The game-sound-only cut stays at .stills-tmp/film/changeover.mp4.

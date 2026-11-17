@@ -5,20 +5,34 @@ Each shot's frames (DIR/<shot>/index.txt, one "<epoch seconds> <file>" per frame
 timestamps, trimmed to the shot's START/END cues (DIR/cues.json), and the fast night inside `dawn` and `daily`
 (between the NIGHT and DAWN cues) is sped up to a few seconds and labelled as such. The game view is cropped
 out of the emulator's page and set beside a caption panel; the closing card says how it was recorded.
-Picture only, no music. Text is rendered by scripts/film-cards.swift (this ffmpeg has no drawtext).
+Sound: the game's own, recorded with each shot (DIR/<shot>/audio.wav, scripts/film-audio-tap.mjs) and cut on
+the same lines as the picture; the fast night's sound is sped up with it (pitch kept). One gain for the whole
+film brings its peak to PEAK_DB; nothing else is added, no music. Text is rendered by scripts/film-cards.swift
+(this ffmpeg has no drawtext).
 
   python3 scripts/film-cut.py .stills-tmp/film            writes .stills-tmp/film/changeover.mp4
   python3 scripts/film-cut.py .stills-tmp/film --plan     prints the timeline only
+  python3 scripts/film-cut.py .stills-tmp/film --voice scripts/film-voice.json
+      the same cut with a narration on top (DIR/changeover-voice.mp4): each line is spoken by a synthetic
+      voice (Amazon Polly, via the aws CLI; clips cached in .stills-tmp/voice), placed `at` seconds into its
+      shot, with the game's sound turned down DUCK_DB under it. The closing card says the voice is synthetic.
 """
+import hashlib
 import json
+import math
 import os
 import subprocess
 import sys
+import wave
+from array import array
 
 DIR = os.path.abspath(sys.argv[1] if len(sys.argv) > 1 and not sys.argv[1].startswith("--") else ".stills-tmp/film")
 PLAN_ONLY = "--plan" in sys.argv
-OUT = os.path.join(DIR, "changeover.mp4")
-WORK = os.path.join(DIR, "cut")
+VOICE = sys.argv[sys.argv.index("--voice") + 1] if "--voice" in sys.argv else None
+OUT = os.path.join(DIR, "changeover-voice.mp4" if VOICE else "changeover.mp4")
+WORK = os.path.join(DIR, "cut-voice" if VOICE else "cut")
+VOICE_LUFS = -16.0  # the narration's loudness; the game's sound keeps its one gain and sits under it
+DUCK_DB = -9.0  # the game's sound while the voice speaks
 FPS = 30
 W, H = 1920, 1080
 CROP = "936:870:132:332"  # the game view inside the emulator page (no overlay), measured by cropdetect
@@ -28,6 +42,8 @@ FF_SECONDS = 5.0  # a whole night at ?speed=600 shown in this many seconds
 CLOSING_SECONDS = 6.0
 IN_AT = {"dawn": ("NIGHT", -1.5)}  # dawn's carries repeat night1's, so it starts as its night begins
 LIMIT = 178.0  # Devpost: under 3:00
+RATE = 48000
+PEAK_DB = -1.0  # the film's loudest moment after the one gain
 
 AMBER, WHITE, GREY, DIM = [0.96, 0.73, 0.25], [1, 1, 1], [0.74, 0.74, 0.77], [0.5, 0.5, 0.53]
 
@@ -59,10 +75,14 @@ for _k, (_a, _b, _c) in PANELS.items():  # keep a number on the same line as its
 FOOTER = "IWSDK emulator (IWER) · scripted hands and eyes"
 CLOSING = [
     ("CHANGEOVER", 34, "semibold", AMBER, 330),
-    ("Recorded in IWSDK's emulator (IWER) with scripted hands and eyes. No headset was used.", 46, "medium", WHITE, -34),
+    ("Recorded in IWSDK's emulator (IWER) with scripted hands and eyes, and the game's own sound. "
+     "No headset was used.", 46, "medium", WHITE, -34),
     ("Try it: osiyomeoh.github.io/changeover", 34, "medium", AMBER, -64),
     ("Code (MIT): github.com/Osiyomeoh/changeover", 30, "regular", GREY, -18),
 ]
+if VOICE:
+    CLOSING[1] = ("Recorded in IWSDK's emulator (IWER) with scripted hands and eyes, and the game's own sound. "
+                  "The narration is a synthetic voice. No\u00a0headset was used.", *CLOSING[1][1:])
 
 
 def sh(*cmd):
@@ -94,8 +114,12 @@ def plan(key, cue):
         sys.exit(f"{key}: only {len(kept)} frames between its cues")
     speed = (ff[1] - ff[0]) / FF_SECONDS if ff else 1.0
     out, clock, ff_out = [], 0.0, None
+    runs, run_at, run_fast = [], kept[0][0], False  # the sound's pieces: source span, and whether it is sped up
     for (t, p), nxt in zip(kept, kept[1:] + [(kept[-1][0] + 1 / FPS, None)]):
         fast = ff is not None and ff[0] <= t < ff[1]
+        if fast != run_fast:
+            runs.append((run_at, t, run_fast))
+            run_at, run_fast = t, fast
         if fast and ff_out is None:
             ff_out = [clock, clock]
         dur = (nxt[0] - t) / (speed if fast else 1.0)
@@ -103,7 +127,9 @@ def plan(key, cue):
         clock += dur
         if fast:
             ff_out[1] = clock
-    return out, clock, (ff_out, speed) if ff else None
+    runs.append((run_at, kept[-1][0] + 1 / FPS, run_fast))
+    pieces = [(a, b, speed if f else 1.0) for a, b, f in runs if b > a]
+    return out, clock, (ff_out, speed) if ff else None, pieces
 
 
 def cards(order):
@@ -151,6 +177,165 @@ def encode_shot(key, kept, dur, ff):
     return seg
 
 
+def seconds(path):
+    """A video segment's real length (whole frames), so its sound is cut to match and nothing drifts."""
+    n = sh("ffprobe", "-v", "error", "-count_frames", "-select_streams", "v:0", "-show_entries",
+           "stream=nb_read_frames", "-of", "csv=p=0", path).strip()
+    return int(n) / FPS
+
+
+def encode_sound(key, pieces, length):
+    """The shot's own sound on the same cut: each piece of source time, sped up where the picture is."""
+    wav = os.path.join(DIR, key, "audio.wav")
+    out = os.path.join(WORK, f"{key}.wav")
+    if not os.path.exists(wav):
+        print(f"  {key}: no audio.wav, silent", flush=True)
+        return silence(out, length)
+    with open(os.path.join(DIR, key, "audio.json")) as f:
+        t0 = json.load(f)["startEpoch"]
+    g = f"[0:a]asplit={len(pieces)}" + "".join(f"[s{i}]" for i in range(len(pieces)))
+    for i, (a, b, speed) in enumerate(pieces):
+        ra, rb, pre = a - t0, b - t0, 0.0
+        if ra < 0:  # the shot began before the sound did
+            pre, ra = -ra, 0.0
+        chain = f"[s{i}]atrim=start={ra:.5f}:end={max(ra, rb):.5f},asetpts=PTS-STARTPTS"
+        if speed != 1.0:
+            chain += f",atempo={speed:.5f}"
+        if pre:
+            chain += f",adelay={pre * 1000:.0f}:all=1"
+        g += f";{chain},apad,atrim=end={(b - a) / speed:.5f}[p{i}]"
+    g += (";" + "".join(f"[p{i}]" for i in range(len(pieces))) + f"concat=n={len(pieces)}:v=0:a=1,"
+          f"aresample={RATE},afade=t=in:st=0:d=0.3,afade=t=out:st={length - 0.35:.3f}:d=0.35,"
+          f"apad,atrim=end_sample={round(length * RATE)}[au]")
+    sh("ffmpeg", "-y", "-hide_banner", "-loglevel", "error", "-i", wav, "-filter_complex", g, "-map", "[au]",
+       "-ac", "1", "-c:a", "pcm_s16le", out)
+    return out
+
+
+def silence(out, length):
+    sh("ffmpeg", "-y", "-hide_banner", "-loglevel", "error", "-f", "lavfi", "-i", f"anullsrc=r={RATE}:cl=mono",
+       "-t", f"{length:.5f}", "-c:a", "pcm_s16le", out)
+    return out
+
+
+def levels(path, af=""):
+    """Peak and mean (dBFS) of a sound file, or of a concat list."""
+    src = ["-f", "concat", "-safe", "0", "-i", path] if path.endswith(".txt") else ["-i", path]
+    r = subprocess.run(["ffmpeg", "-hide_banner", "-nostats", *src, "-af", (af + "," if af else "") + "volumedetect",
+                        "-f", "null", "-"], capture_output=True, text=True)
+    get = lambda k: float(r.stderr.split(k + ":")[1].split()[0])  # noqa: E731
+    return get("max_volume"), get("mean_volume")
+
+
+def pcm(src):
+    """A sound file, or a concat list, as 16-bit mono samples at RATE."""
+    inp = ["-f", "concat", "-safe", "0", "-i", src] if src.endswith(".txt") else ["-i", src]
+    r = subprocess.run(["ffmpeg", "-v", "error", *inp, "-ac", "1", "-ar", str(RATE), "-f", "s16le", "-"],
+                       capture_output=True)
+    if r.returncode:
+        sys.exit(f"failed to decode {src}: {r.stderr[-500:]}")
+    a = array("h")
+    a.frombytes(r.stdout)
+    return a
+
+
+def write_wav(path, samples):
+    with wave.open(path, "wb") as w:
+        w.setnchannels(1)
+        w.setsampwidth(2)
+        w.setframerate(RATE)
+        w.writeframes(samples.tobytes())
+
+
+def lufs(path):
+    r = subprocess.run(["ffmpeg", "-hide_banner", "-nostats", "-i", path, "-af", "ebur128", "-f", "null", "-"],
+                       capture_output=True, text=True)
+    return float(r.stderr.rsplit("I:", 1)[1].split()[0])
+
+
+def speak(text, voice, engine):
+    """One line from the synthetic voice, trimmed to where the speech starts and ends."""
+    cache = os.path.join(os.path.dirname(DIR), "voice")
+    os.makedirs(cache, exist_ok=True)
+    mp3 = os.path.join(cache, hashlib.sha1(f"{voice}|{engine}|{text}".encode()).hexdigest()[:16] + ".mp3")
+    if not os.path.exists(mp3):
+        sh("aws", "polly", "synthesize-speech", "--region", "us-east-1", "--engine", engine, "--voice-id", voice,
+           "--output-format", "mp3", "--sample-rate", "24000", "--text", text, mp3)
+    a = pcm(mp3)
+    loud = [i for i in range(0, len(a), 240) if max(abs(x) for x in a[i:i + 240]) > 300]  # above -40 dBFS
+    if not loud:
+        sys.exit(f"silent clip for: {text}")
+    return a[max(0, loud[0] - 240):min(len(a), loud[-1] + 720)]
+
+
+def narrate(alst, starts, lengths):
+    """The game's sound with the narration on top: (wav path, report lines)."""
+    with open(VOICE) as f:
+        spec = json.load(f)
+    game = pcm(alst)
+    n = len(game)
+    voice = array("i", bytes(4 * n))
+    spans, report, problems = [], [], []
+    for ln in spec["lines"]:
+        clip = speak(ln["text"], spec["voice"], spec["engine"])
+        t = starts[ln["shot"]] + ln["at"]
+        end = t + len(clip) / RATE
+        i0 = round(t * RATE)
+        for j, x in enumerate(clip[: max(0, n - i0)]):
+            voice[i0 + j] += x
+        if spans and t < spans[-1][1] + 0.15:
+            problems.append(f"overlaps the line before: {ln['text']}")
+        if end > starts[ln["shot"]] + lengths[ln["shot"]] + 0.25:
+            problems.append(f"runs past its shot ({end - starts[ln['shot']] - lengths[ln['shot']]:+.2f} s): {ln['text']}")
+        spans.append((t, end))
+        report.append(f"{int(t // 60)}:{t % 60:04.1f}–{int(end // 60)}:{end % 60:04.1f}  {ln['shot']:9s} {ln['text']}")
+    for p in problems:
+        print("  voice: " + p, flush=True)
+    raw = os.path.join(WORK, "voice-raw.wav")
+    write_wav(raw, array("h", (max(-32768, min(32767, x)) for x in voice)))
+    # The voice alone is brought to VOICE_LUFS, its consonant peaks held under -2 dB by a limiter (voice only).
+    vpath = os.path.join(WORK, "voice.wav")
+    sh("ffmpeg", "-y", "-hide_banner", "-loglevel", "error", "-i", raw, "-af",
+       f"aformat=sample_fmts=flt,volume={VOICE_LUFS - lufs(raw):.2f}dB,"
+       f"alimiter=limit={10 ** (-2 / 20):.4f}:attack=5:release=60:level=0", "-c:a", "pcm_s16le", vpath)
+    voice, gv = pcm(vpath), 1.0
+    # The game's sound keeps the one gain that brings its own peak to PEAK_DB, and dips DUCK_DB under each line.
+    peak = max(max(game), -min(game)) or 1
+    gg = 10 ** (PEAK_DB / 20) * 32767 / peak
+    duck, ramp = 10 ** (DUCK_DB / 20), round(0.25 * RATE)
+    env = array("f", [1.0]) * n
+    merged = []
+    for a, b in spans:  # one dip across lines less than a second apart
+        if merged and a - merged[-1][1] < 1.0:
+            merged[-1][1] = b
+        else:
+            merged.append([a, b])
+    for a, b in merged:
+        i, j = max(0, round((a - 0.15) * RATE)), min(n, round((b + 0.3) * RATE))
+        for k in range(max(0, i - ramp), j + ramp):
+            if k >= n:
+                break
+            if k < i:
+                v = 1 - (1 - duck) * (k - (i - ramp)) / ramp
+            elif k < j:
+                v = duck
+            else:
+                v = 1 - (1 - duck) * (1 - (k - j) / ramp)
+            env[k] = min(env[k], v)
+    mix = [g * gg * e + v * gv for g, e, v in zip(game, env, voice)]
+    top = max(max(mix), -min(mix))
+    fit = min(1.0, 10 ** (PEAK_DB / 20) * 32767 / top)  # one gain down if the voice pushes the peak over
+    out = os.path.join(WORK, "mix.wav")
+    write_wav(out, array("h", (max(-32768, min(32767, round(x * fit))) for x in mix)))
+    report.append(f"voice: {spec['voice']} ({spec['engine']}), synthetic; {len(spec['lines'])} lines, "
+                  f"{lufs(vpath):.1f} LUFS alone (limited at -2 dB); "
+                  f"game sound {20 * math.log10(gg):+.1f} dB, {DUCK_DB:.0f} dB under the voice; "
+                  f"overall {20 * math.log10(fit):+.1f} dB; {lufs(out):.1f} LUFS")
+    if problems:
+        report += ["voice problems:"] + problems
+    return out, report
+
+
 def main():
     with open(os.path.join(DIR, "cues.json")) as f:
         cues = json.load(f)
@@ -161,8 +346,8 @@ def main():
     plans, t = {}, 0.0
     timeline = []
     for key in order:
-        kept, dur, ff = plan(key, cues[key])
-        plans[key] = (kept, dur, ff)
+        kept, dur, ff, pieces = plan(key, cues[key])
+        plans[key] = (kept, dur, ff, pieces)
         note = f"  (night {ff[0][1] - ff[0][0]:.1f} s shown, {ff[1]:.1f}× speed)" if ff else ""
         timeline.append(f"{int(t // 60)}:{t % 60:04.1f}–{int((t + dur) // 60)}:{(t + dur) % 60:04.1f}  {key:9s} "
                         f"{dur:5.1f} s  {len(kept)} frames{note}")
@@ -178,25 +363,48 @@ def main():
         return
     os.makedirs(WORK, exist_ok=True)
     cards(order)
-    segs = []
+    segs, sounds, starts, lengths, at = [], [], {}, {}, 0.0
     for key in order:
-        kept, dur, ff = plans[key]
+        kept, dur, ff, pieces = plans[key]
         segs.append(encode_shot(key, kept, dur, ff))
-        print(f"  encoded {key}", flush=True)
+        starts[key], lengths[key] = at, seconds(segs[-1])
+        at += lengths[key]
+        sounds.append(encode_sound(key, pieces, lengths[key]))
+        peak, mean = levels(sounds[-1])
+        print(f"  encoded {key}: sound peak {peak:.1f} dB, mean {mean:.1f} dB", flush=True)
     closing = os.path.join(WORK, "closing.mp4")
     sh("ffmpeg", "-y", "-hide_banner", "-loglevel", "error", "-loop", "1", "-framerate", str(FPS), "-t",
        f"{CLOSING_SECONDS}", "-i", os.path.join(WORK, "closing.png"), "-vf",
        f"fade=t=in:st=0:d=0.5,fade=t=out:st={CLOSING_SECONDS - 0.6}:d=0.6,format=yuv420p", "-r", str(FPS),
        "-c:v", "libx264", "-preset", "medium", "-crf", "18", closing)
     segs.append(closing)
+    sounds.append(silence(os.path.join(WORK, "closing.wav"), seconds(closing)))
     lst = os.path.join(WORK, "segments.txt")
     with open(lst, "w") as f:
         f.writelines(f"file '{s}'\n" for s in segs)
-    sh("ffmpeg", "-y", "-hide_banner", "-loglevel", "error", "-f", "concat", "-safe", "0", "-i", lst, "-c", "copy",
-       "-movflags", "+faststart", OUT)
-    with open(os.path.join(DIR, "timeline.txt"), "w") as f:
+    alst = os.path.join(WORK, "sounds.txt")
+    with open(alst, "w") as f:
+        f.writelines(f"file '{s}'\n" for s in sounds)
+    peak, mean = levels(alst)
+    gain = PEAK_DB - peak
+    print(f"  sound before gain: peak {peak:.1f} dB, mean {mean:.1f} dB; gain {gain:+.1f} dB", flush=True)
+    if VOICE:
+        mix, report = narrate(alst, starts, lengths)
+        sh("ffmpeg", "-y", "-hide_banner", "-loglevel", "error", "-f", "concat", "-safe", "0", "-i", lst,
+           "-i", mix, "-map", "0:v", "-map", "1:a", "-c:v", "copy", "-ac", "2", "-c:a", "aac", "-b:a", "192k",
+           "-shortest", "-movflags", "+faststart", OUT)
+        timeline += ["sound: the game's own, with a synthetic narration on top"] + report
+        print("\n".join(report), flush=True)
+    else:
+        sh("ffmpeg", "-y", "-hide_banner", "-loglevel", "error", "-f", "concat", "-safe", "0", "-i", lst,
+           "-f", "concat", "-safe", "0", "-i", alst, "-map", "0:v", "-map", "1:a", "-c:v", "copy",
+           "-af", f"volume={gain:.2f}dB", "-ac", "2", "-c:a", "aac", "-b:a", "192k", "-movflags", "+faststart",
+           OUT)
+        timeline.append(f"sound: the game's own; one gain {gain:+.1f} dB brings the peak to {PEAK_DB} dB")
+    with open(os.path.join(DIR, "timeline-voice.txt" if VOICE else "timeline.txt"), "w") as f:
         f.write("\n".join(timeline) + "\n")
-    probe = sh("ffprobe", "-v", "error", "-show_entries", "format=duration:stream=width,height,r_frame_rate",
+    probe = sh("ffprobe", "-v", "error", "-show_entries",
+               "format=duration:stream=codec_type,width,height,r_frame_rate,sample_rate,channels,duration",
                "-of", "json", OUT)
     print(OUT, json.dumps(json.loads(probe)), flush=True)
 

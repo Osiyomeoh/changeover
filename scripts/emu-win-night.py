@@ -10,7 +10,7 @@ import json
 import os
 import time
 
-from emu_lib import PARK, cli, find_one, hand, settle, values
+from emu_lib import PARK, cli, find_one, hand, settle
 
 here = os.path.dirname(os.path.abspath(__file__))
 spec = importlib.util.spec_from_file_location("ep", os.path.join(here, "emu-play.py"))

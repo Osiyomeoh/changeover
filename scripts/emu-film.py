@@ -16,7 +16,8 @@ Usage (from the project root, dev server running with the browser headed):
   python3 scripts/emu-film.py --shot dawn      one shot, e.g. for a retake
   python3 scripts/emu-film.py --auto           no Enter prompts (a 3 s gap before each shot)
   python3 scripts/emu-film.py --capture .stills-tmp/film   also record each shot's frames into DIR/<shot>/
-                                               (scripts/film-capture.mjs) for scripts/film-cut.py; implies --auto
+                                               and its sound (scripts/film-capture.mjs, film-audio-tap.mjs) for
+                                               scripts/film-cut.py; implies --auto
   python3 scripts/emu-film.py --overlay        keep the emulator's toolbar, hand panels and axis gizmos
                                                in frame (hidden by default; shown again at the end)
 The cue log (seconds since the script started, per shot) goes to .stills-tmp/film-cues.txt, so
@@ -42,6 +43,8 @@ SEATED = -35  # the seated design pose: src/fov.test.ts keeps everything critica
 SAFE_GAZE = (0.0, TOP_Y, -0.08)  # the table's near edge: no look target, so a pinch is only the hand's
 CAPTURE = sys.argv[sys.argv.index("--capture") + 1] if "--capture" in sys.argv else None
 AUTO = "--auto" in sys.argv or CAPTURE is not None
+if CAPTURE:
+    os.environ["CO_AUDIO_TAP"] = "1"  # each shot's page records the game's sound (scripts/film-audio-tap.mjs)
 OVERLAY = "--overlay" in sys.argv
 _cap = None  # (process, dir) while a capture runs; the browser then queues `browser run`, so moves use `xr`
 CUES_JSON = {}
@@ -402,7 +405,7 @@ def main():
     except Exception:  # noqa: BLE001
         pass
     print("\n" + "  ".join(f"{k}:{'ok' if ok else 'BAD'}" for k, ok in results))
-    print("Closing card: \"Recorded in IWSDK's emulator (IWER) with scripted hands and eyes. No headset was used.\"")
+    print("Closing card: \"Recorded in IWSDK's emulator (IWER) with scripted hands and eyes, and the game's own sound. No headset was used.\"")
     print(f"Cue log: {CUES}")
     sys.exit(0 if all(ok for _, ok in results) else 1)
 

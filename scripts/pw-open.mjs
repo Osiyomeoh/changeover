@@ -6,8 +6,12 @@
 // page cannot enter XR in the emulator at all. Production builds do not include IWER.
 // CO_READ_ONLY=1 skips navigation and only reports storage. CO_CLEAR=all removes the
 // game's streak, saved night and campaign progress before navigating.
+// CO_AUDIO_TAP=1 records the game's sound for the video (scripts/film-audio-tap.mjs); any other
+// navigation clears its flag, so the tap stays off.
 // Prints the final URL, the emulated device's user agent, and what the page's
 // localStorage holds for the game's keys.
+import { AUDIO_TAP_FLAG, audioTap } from './film-audio-tap.mjs';
+
 export default async function run({ page, frame }) {
   // The managed window hosts the app in a child frame; navigate that frame.
   const app = frame ?? page.mainFrame();
@@ -55,6 +59,21 @@ export default async function run({ page, frame }) {
       }
     });
   }
+  const tap = process.env.CO_AUDIO_TAP === '1';
+  if (!readOnly) {
+    await app.evaluate(
+      ([k, on]) => {
+        try {
+          if (on) sessionStorage.setItem(k, '1');
+          else sessionStorage.removeItem(k);
+        } catch {
+          /* storage blocked: no tap */
+        }
+      },
+      [AUDIO_TAP_FLAG, tap],
+    );
+    if (tap) await page.addInitScript(audioTap, AUDIO_TAP_FLAG);
+  }
   const url = new URL(app.url());
   url.search = query;
   if (process.env.CO_CLEAR === '1' && !block && !blockKey && !readOnly) {
@@ -83,5 +102,6 @@ export default async function run({ page, frame }) {
   // The emulated device's user agent: names the headset IWER is emulating
   // (Meta VR Glasses inherits the Quest 3 string; Quest Pro says "Quest Pro").
   const ua = await app.evaluate(() => navigator.userAgent);
-  return { url: app.url(), ua, isMain: app === page.mainFrame(), blocked: block ? 'all' : blockKey ? 'key' : 'no', stored, session, nights, callers, uncaught };
+  const audio = tap ? await app.evaluate(() => (window.__coAudioTap ? 'tapped' : 'missing')) : 'off';
+  return { url: app.url(), ua, audio, isMain: app === page.mainFrame(), blocked: block ? 'all' : blockKey ? 'key' : 'no', stored, session, nights, callers, uncaught };
 }
